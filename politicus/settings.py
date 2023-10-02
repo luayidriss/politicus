@@ -69,7 +69,7 @@ CSRF_COOKIE_SECURE = True
 
 CSRF_COOKIE_SAMESITE = 'Strict'
 
-CSRF_TRUSTED_ORIGINS = ALLOWED_ORIGINS.copy()
+CSRF_TRUSTED_ORIGINS=['https://*.8000-luayidriss-politicus-37cjc7lmvze.ws-eu105.gitpod.io']
 
 
 #if 'CLIENT_ORIGIN' in os.environ:

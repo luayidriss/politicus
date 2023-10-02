@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     'profiles',
     'questions',
     'responses',
-    'multiupload',
 ]
 
 MIDDLEWARE = [

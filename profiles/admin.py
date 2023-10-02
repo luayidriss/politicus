@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Profile
+from .models import User
 
-@admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('owner', 'name', 'content','image')
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('username', 'first_name', 'last_name', 'email', 'biography', 'profile_image', 'is_staff')

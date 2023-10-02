@@ -31,8 +31,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEBUG' in os.environ
 
-allowed_hosts_string = os.environ.get('ALLOWED_HOSTS', '')
-ALLOWED_HOSTS = allowed_hosts_string.split(',')
+ALLOWED_HOSTS = [
+    '8000-luayidriss-politicus-37cjc7lmvze.ws-eu105.gitpod.io',
+]
 
 # Application definition
 
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'cloudinary',
     'politicus',
+    'multiupload',
 ]
 
 MIDDLEWARE = [
@@ -61,16 +63,24 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-if 'CLIENT_ORIGIN' in os.environ:
-     CORS_ALLOWED_ORIGINS = [
-         os.environ.get('CLIENT_ORIGIN')
-     ]
-else:
-     CORS_ALLOWED_ORIGIN_REGEXES = [
-         r"^https://.*\.gitpod\.io$",
-     ]
+ALLOWED_ORIGINS = ['http://*', 'https://*']
 
-CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SECURE = True
+
+CSRF_COOKIE_SAMESITE = 'Strict'
+
+CSRF_TRUSTED_ORIGINS = ALLOWED_ORIGINS.copy()
+
+
+#if 'CLIENT_ORIGIN' in os.environ:
+     #CORS_ALLOWED_ORIGINS = [
+         #os.environ.get('CLIENT_ORIGIN')
+     #]
+#else:
+     #CORS_ALLOWED_ORIGIN_REGEXES = [
+         #r"^https://.*\.gitpod\.io$",
+     #]
+
 
 ROOT_URLCONF = 'politicus.urls'
 

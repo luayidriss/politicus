@@ -49,6 +49,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'cloudinary',
     'politicus',
+    'followers',
+    'profiles',
+    'questions',
+    'responses',
     'multiupload',
 ]
 

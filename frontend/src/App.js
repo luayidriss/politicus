@@ -6,6 +6,7 @@ import NavigationBar from './components/NavigationBar';
 import Home from './pages/Home';
 import Questions from './pages/Questions';
 import Profiles from './pages/Profiles';
+import Registration from './pages/Registration'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route path="/questions" component={Questions} />
           <Route path="/user-profiles" component={Profiles} />
+          <Route path="/register" component={Registration} />
         </Switch>
       </div>
     </Router>

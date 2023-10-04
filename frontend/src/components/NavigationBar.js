@@ -19,6 +19,14 @@ const NavigationBar = () => {
               <Link to="/user-profiles" className="nav-link">Profiles</Link>
             </Nav.Item>
           </Nav>
+          <Nav className="ml-auto">
+          <Nav.Item>
+            <Link to="/register" className="nav-link">Sign Up</Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Link to="/signin" className="nav-link">Sign In</Link>
+          </Nav.Item>
+        </Nav>
       </Container>
     </Navbar>
   );

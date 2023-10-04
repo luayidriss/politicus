@@ -23,4 +23,5 @@ urlpatterns = [
     path('questions/', include('questions.urls')),
     path('responses', include('responses.urls')),
     path('followers/', include('followers.urls')),
+    path('authenticate/', include('authentication.urls')),
 ]

@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'profiles',
     'questions',
     'responses',
+    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +69,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',  # Optional, for browser-based login
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
+
 ALLOWED_ORIGINS = ['http://*', 'https://*']
 
 CSRF_COOKIE_SECURE = True
@@ -75,16 +83,6 @@ CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = 'Strict'
 
 CSRF_TRUSTED_ORIGINS=['https://*.8000-luayidriss-politicus-37cjc7lmvze.ws-eu105.gitpod.io']
-
-
-#if 'CLIENT_ORIGIN' in os.environ:
-     #CORS_ALLOWED_ORIGINS = [
-         #os.environ.get('CLIENT_ORIGIN')
-     #]
-#else:
-     #CORS_ALLOWED_ORIGIN_REGEXES = [
-         #r"^https://.*\.gitpod\.io$",
-     #]
 
 
 ROOT_URLCONF = 'politicus.urls'

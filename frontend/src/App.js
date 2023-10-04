@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Questions from './pages/Questions';
 import Profiles from './pages/Profiles';
 import Registration from './pages/Registration'
+import Login from './pages/Login'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/questions" component={Questions} />
           <Route path="/user-profiles" component={Profiles} />
           <Route path="/register" component={Registration} />
+          <Route path="/login" component={Login} />
         </Switch>
       </div>
     </Router>

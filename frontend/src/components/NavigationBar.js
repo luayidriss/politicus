@@ -24,7 +24,7 @@ const NavigationBar = () => {
             <Link to="/register" className="nav-link">Sign Up</Link>
           </Nav.Item>
           <Nav.Item>
-            <Link to="/signin" className="nav-link">Sign In</Link>
+            <Link to="/login" className="nav-link">Sign In</Link>
           </Nav.Item>
         </Nav>
       </Container>

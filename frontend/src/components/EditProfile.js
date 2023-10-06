@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Container, Form, Button, Row, Col, Image } from 'react-bootstrap';
 
 const EditProfile = () => {
   const [user, setUser] = useState({});
@@ -38,31 +39,45 @@ const EditProfile = () => {
   };
 
   return (
-    <div>
+    <Container className="mt-4">
       <h2>Edit Profile</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username:</label>
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
+      <Form onSubmit={handleSubmit}>
+        <Row>
+          <Col>
+            <Form.Group>
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group>
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        {profileImage && (
+          <Image
+            src={profileImage}
+            alt="User Profile"
+            className="img-fluid rounded-circle mb-3"
           />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-        </div>
-        {profileImage && <img src={profileImage} alt="User Profile" />}
-        <button type="submit">Update Profile</button>
-      </form>
-    </div>
+        )}
+        <Button variant="primary" type="submit">
+          Update Profile
+        </Button>
+      </Form>
+    </Container>
   );
 };
 

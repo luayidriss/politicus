@@ -1,6 +1,8 @@
-// IMPORTANT!!
- // Because this React app is running in the same workspace as the API,
+import axios from 'axios';
 
- // there is no need to set a separate baseURL until you reach deployment.
+const instance = axios.create({
+    baseURL: 'http://localhost:8000',
+    timeout: 5000,
+});
 
- // Setting a baseURL before you reach deployment will cause errors
+export default instance;

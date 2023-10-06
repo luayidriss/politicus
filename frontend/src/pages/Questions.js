@@ -4,7 +4,7 @@ import QuestionForm from '../components/QuestionForm';
 const Questions = () => {
   return (
     <div>
-      <h2>Questions Page</h2>
+      <h2>Add Questions Page</h2>
       <QuestionForm />
     </div>
   )

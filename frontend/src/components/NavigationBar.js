@@ -13,7 +13,7 @@ const NavigationBar = () => {
               <Link to="/" className="nav-link">Home</Link>
             </Nav.Item>
             <Nav.Item>
-              <Link to="/questions" className="nav-link">Questions</Link>
+              <Link to="/questions" className="nav-link"> Add Questions</Link>
             </Nav.Item>
             <Nav.Item>
               <Link to="/user-profiles" className="nav-link">Profiles</Link>

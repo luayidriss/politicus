@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import ResponseList from './ResponseList';
+import ResponseForm from './ResponseForm';
 
 function QuestionDetail() {
     const { questionId } = useParams();
@@ -26,6 +27,7 @@ function QuestionDetail() {
                     <p>Author: {question.user.username}</p>
 
                     <ResponseList questionId={questionId} />
+                    <ResponseForm questionId={questionId} />
                 </div>
             ) : (
                 <p>Loading question details...</p>

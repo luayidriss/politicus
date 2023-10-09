@@ -42,7 +42,7 @@ function InfiniteScrollQuestions() {
                 <ul>
                     {questions.map((question) => (
                         <li key={question.id}>
-                            <Link to={`/questions/${question.id}`}>{question.title}</Link>
+                            <Link to={`/questions/${question.id}`}>{question.question}</Link>
                         </li>
                     ))}
                 </ul>

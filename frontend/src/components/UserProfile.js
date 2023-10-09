@@ -7,7 +7,7 @@ const UserProfile = () => {
   const [profileImage, setProfileImage] = useState(null);
 
   useEffect(() => {
-    axios.get('/api/profile')
+    axios.get('/api/profile/')
       .then((response) => {
         setUser(response.data);
         setProfileImage(response.data.profile_image);

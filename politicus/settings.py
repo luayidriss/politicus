@@ -35,7 +35,10 @@ DEBUG = True
 
 
 ALLOWED_HOSTS = [
-    '*',
+    'https://3000-luayidriss-politicus-kw4wnqaetu4.ws-eu105.gitpod.io',
+    'https://8000-luayidriss-politicus-kw4wnqaetu4.ws-eu105.gitpod.io',
+    '8000-luayidriss-politicus-kw4wnqaetu4.ws-eu105.gitpod.io',
+    '3000-luayidriss-politicus-kw4wnqaetu4.ws-eu105.gitpod.io'
     ]
 
 
@@ -88,14 +91,24 @@ REST_FRAMEWORK = {
 #     'SLIDING_TOKEN_LIFETIME': timedelta(days=30),
 # }
 
-ALLOWED_ORIGINS = ['http://*', 'https://*']
+# ALLOWED_ORIGINS = ['http://*', 'https://*']
 
 CSRF_COOKIE_SECURE = True
 
 CSRF_COOKIE_SAMESITE = 'Strict'
 
-CSRF_TRUSTED_ORIGINS=['https://*.8000-luayidriss-politicus-37cjc7lmvze.ws-eu105.gitpod.io']
+# CSRF_TRUSTED_ORIGINS=['https://*.8000-luayidriss-politicus-37cjc7lmvze.ws-eu105.gitpod.io']
 
+# CORS_ORIGIN_ALLOW_ALL= True
+
+# CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "https://3000-luayidriss-politicus-kw4wnqaetu4.ws-eu105.gitpod.io"
+]
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'politicus.urls'
 

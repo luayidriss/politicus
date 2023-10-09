@@ -8,6 +8,7 @@ import Questions from './pages/Questions';
 import Profiles from './pages/Profiles';
 import Registration from './pages/Registration'
 import Login from './pages/Login'
+import "./api/axiosDefaults"
 
 function App() {
   return (

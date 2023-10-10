@@ -54,15 +54,18 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
+    'allauth',
+    'allauth.account',
     # 'rest_framework_simplejwt',
     # 'simplejwt',
+    'dj_rest_auth',
     'cloudinary',
     'politicus',
     'followers',
     'profiles',
     'questions',
     'responses',
-    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -74,6 +77,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 REST_FRAMEWORK = {
@@ -97,7 +101,9 @@ CSRF_COOKIE_SECURE = True
 
 CSRF_COOKIE_SAMESITE = 'Strict'
 
-# CSRF_TRUSTED_ORIGINS=['https://*.8000-luayidriss-politicus-37cjc7lmvze.ws-eu105.gitpod.io']
+CSRF_TRUSTED_ORIGINS=[
+    'https://8000-luayidriss-politicus-kw4wnqaetu4.ws-eu105.gitpod.io'
+    ]
 
 # CORS_ORIGIN_ALLOW_ALL= True
 

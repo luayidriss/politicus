@@ -10,14 +10,14 @@ class User(AbstractUser):
         Group,
         verbose_name='groups',
         blank=True,
-        related_name='customuser_set',  # Use a different related_name
+        related_name='customuser_set',
         related_query_name='user',
     )
     user_permissions = models.ManyToManyField(
         Permission,
         verbose_name='user permissions',
         blank=True,
-        related_name='customuser_set',  # Use a different related_name
+        related_name='customuser_set',
         related_query_name='user',
     )
 

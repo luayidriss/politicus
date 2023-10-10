@@ -21,7 +21,11 @@ urlpatterns = [
     path('api/admin/', admin.site.urls),
     path('api/profiles/', include('profiles.urls')),
     path('api/questions/', include('questions.urls')),
-    path('api/esponses', include('responses.urls')),
+    path('api/responses', include('responses.urls')),
     path('api/followers/', include('followers.urls')),
-    path('api/auth/', include('authentication.urls')),
+    path('accounts/', include('allauth.urls')),
+    path('dj-rest-auth/', include('dj_rest_auth.urls')),
+    path(
+        'dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')
+    ),
 ]

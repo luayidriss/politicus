@@ -14,7 +14,6 @@ from pathlib import Path
 import os
 import dj_database_url
 from datetime import datetime, timedelta
-# import jwt
 
 if os.path.exists('env.py'):
     import env
@@ -33,13 +32,14 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+ALLOWED_HOSTS=["*"]
 
-ALLOWED_HOSTS = [
-    'https://3000-luayidriss-politicus-kw4wnqaetu4.ws-eu105.gitpod.io',
-    'https://8000-luayidriss-politicus-kw4wnqaetu4.ws-eu105.gitpod.io',
-    '8000-luayidriss-politicus-kw4wnqaetu4.ws-eu105.gitpod.io',
-    '3000-luayidriss-politicus-kw4wnqaetu4.ws-eu105.gitpod.io'
-    ]
+# ALLOWED_HOSTS = [
+#     'https://3000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io',
+#     'https://8000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io',
+#     '8000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io',
+#     '3000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io'
+#     ]
 
 
 # Application definition
@@ -100,13 +100,16 @@ CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = 'Strict'
 
 CSRF_TRUSTED_ORIGINS=[
-    'https://8000-luayidriss-politicus-kw4wnqaetu4.ws-eu105.gitpod.io'
+    'https://8000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io'
     ]
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "https://3000-luayidriss-politicus-kw4wnqaetu4.ws-eu105.gitpod.io"
-]
+CORS_ORIGIN_ALLOW_ALL = True
+
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",
+#     "https://3000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io",
+#     "https://8000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io"
+# ]
 
 CORS_ALLOW_CREDENTIALS = True
 

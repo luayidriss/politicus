@@ -10,12 +10,12 @@ import Registration from './pages/Registration';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
 import "./api/axiosDefaults";
-import { AuthProvider } from './components/AuthContext'; // Import AuthProvider
+import { AuthProvider } from './components/AuthContext';
 
 function App() {
   return (
     <Router>
-      <AuthProvider> {/* Wrap the entire app with AuthProvider */}
+      <AuthProvider>
         <div>
           <NavigationBar />
           <Switch>
@@ -27,7 +27,7 @@ function App() {
             <Route path="/logout" component={Logout} />
           </Switch>
         </div>
-      </AuthProvider> {/* Close AuthProvider */}
+      </AuthProvider>
     </Router>
   );
 }

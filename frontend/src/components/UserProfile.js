@@ -1,19 +1,56 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Card } from 'react-bootstrap';
+import { Container, Card, Tabs, Tab } from 'react-bootstrap';
 import axios from 'axios';
 
 const UserProfile = () => {
   const [user, setUser] = useState({});
   const [profileImage, setProfileImage] = useState(null);
+  const [questionCount, setQuestionCount] = useState(0);
+  const [responseCount, setResponseCount] = useState(0);
+  const [followersCount, setFollowersCount] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
 
   useEffect(() => {
-    axios.get('/api/profile/')
+    axios.get('/api/profiles/')
       .then((response) => {
         setUser(response.data);
         setProfileImage(response.data.profile_image);
       })
       .catch((error) => {
         console.error('Error fetching user data:', error);
+      });
+
+
+    axios.get('/api/questions/count/')
+      .then((response) => {
+        setQuestionCount(response.data.count);
+      })
+      .catch((error) => {
+        console.error('Error fetching question count:', error);
+      });
+
+    axios.get('/api/responses/count/')
+      .then((response) => {
+        setResponseCount(response.data.count);
+      })
+      .catch((error) => {
+        console.error('Error fetching response count:', error);
+      });
+
+    axios.get('/api/followers/followers-count/')
+      .then((response) => {
+        setFollowersCount(response.data.count);
+      })
+      .catch((error) => {
+        console.error('Error fetching followers count:', error);
+      });
+
+    axios.get('/api/followers/following-count/')
+      .then((response) => {
+        setFollowingCount(response.data.count);
+      })
+      .catch((error) => {
+        console.error('Error fetching following count:', error);
       });
   }, []);
 
@@ -23,7 +60,8 @@ const UserProfile = () => {
       <Card>
         <Card.Body>
           <Card.Title>Username: {user.username}</Card.Title>
-          <Card.Text>Email: {user.email}</Card.Text>
+          <Card.Text>Followers: {followersCount}</Card.Text>
+          <Card.Text>Following: {followingCount}</Card.Text>
           {profileImage && (
             <Card.Img
               src={profileImage}
@@ -33,6 +71,13 @@ const UserProfile = () => {
           )}
         </Card.Body>
       </Card>
+
+      <Tabs defaultActiveKey="questions" id="profile-tabs">
+        <Tab eventKey="questions" title={`Questions (${questionCount})`}>
+        </Tab>
+        <Tab eventKey="responses" title={`Responses (${responseCount})`}>
+        </Tab>
+      </Tabs>
     </Container>
   );
 };

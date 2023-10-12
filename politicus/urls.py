@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from .views import logout_route
 
 urlpatterns = [
     path('api/admin/', admin.site.urls),
@@ -24,6 +25,7 @@ urlpatterns = [
     path('api/responses', include('responses.urls')),
     path('api/followers/', include('followers.urls')),
     path('accounts/', include('allauth.urls')),
+    path('dj-rest=auth/logout', logout_route),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path(
         'dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')

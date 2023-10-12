@@ -59,7 +59,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     # 'rest_framework_simplejwt',
-    # 'simplejwt',
     'dj_rest_auth',
     'cloudinary',
     'politicus',
@@ -81,6 +80,7 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware",
 ]
 
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
@@ -89,14 +89,13 @@ REST_FRAMEWORK = {
     ),
 }
 
-# SIMPLE_JWT = {
-#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
-#     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
-#     'SLIDING_TOKEN_LIFETIME': timedelta(days=30),
-#     'SLIDING_TOKEN_LIFETIME': timedelta(days=30),
-# }
+REST_USE_JWT = True
 
-# ALLOWED_ORIGINS = ['http://*', 'https://*']
+REST_USE_JWT = True
+JWT_AUTH_SECURE = True
+JWT_AUTH_COOKIE = 'my-app-auth'
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+JWT_AUTH_SAMESITE = None
 
 CSRF_COOKIE_SECURE = True
 
@@ -105,10 +104,6 @@ CSRF_COOKIE_SAMESITE = 'Strict'
 CSRF_TRUSTED_ORIGINS=[
     'https://8000-luayidriss-politicus-kw4wnqaetu4.ws-eu105.gitpod.io'
     ]
-
-# CORS_ORIGIN_ALLOW_ALL= True
-
-# CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",

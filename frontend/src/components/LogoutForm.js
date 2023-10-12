@@ -12,8 +12,8 @@ function LogoutForm() {
     const handleLogout = async () => {
         try {
             await axios.post("/dj-rest-auth/logout/");
-            logout();
             console.log('Logout successful');
+            logout();
             history.push('/home')
         } catch (error) {
             console.error('Logout error:', error);

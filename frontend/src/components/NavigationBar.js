@@ -17,11 +17,13 @@ const NavigationBar = () => {
           <Nav.Item>
             <Link to="/" className="nav-link">Home</Link>
           </Nav.Item>
+          {loggedIn && (
           <Nav.Item>
             <Link to="/questions" className="nav-link"> Add Questions</Link>
           </Nav.Item>
+          )}
           <Nav.Item>
-            <Link to="/user-profiles" className="nav-link">Profiles</Link>
+            <Link to="/user-profiles" className="nav-link">My Profile</Link>
           </Nav.Item>
         </Nav>
         <Nav className="ml-auto">

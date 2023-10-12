@@ -1,27 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import InfiniteScrollQuestions from '../components/InfiniteScrollQuestions';
 import SearchBar from '../components/SearchBar';
 import axios from 'axios';
 
 const Home = () => {
   const [searchResults, setSearchResults] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState('');
 
-  const handleSearch = (keyword) => {
+  const loadAllQuestions = () => {
     axios
-      .get(`/api/search?q=${keyword}`)
+      .get('/api/questions/')
       .then((response) => {
         setSearchResults(response.data);
       })
       .catch((error) => {
-        console.error('Error searching:', error);
+        console.error('Error fetching questions:', error);
       });
+  };
+
+  useEffect(() => {
+    // Load all questions by default
+    loadAllQuestions();
+  }, []);
+
+  const handleSearch = (keyword) => {
+    setSearchKeyword(keyword);
+    if (keyword) {
+      axios
+        .get(`/api/questions/?q=${keyword}`)
+        .then((response) => {
+          setSearchResults(response.data);
+        })
+        .catch((error) => {
+          console.error('Error searching:', error);
+        });
+    } else {
+      setSearchResults([]);
+    }
   };
 
   return (
     <div>
       <h2>Home</h2>
       <SearchBar onSearch={handleSearch} />
-      <InfiniteScrollQuestions data={searchResults} />
+      {searchKeyword && searchResults.length === 0 ? (
+        <p>No questions found</p>
+      ) : (
+        <InfiniteScrollQuestions
+          data={searchKeyword ? searchResults : undefined}
+          loadAllQuestions={loadAllQuestions}
+        />
+      )}
     </div>
   );
 };

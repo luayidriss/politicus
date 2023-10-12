@@ -4,13 +4,14 @@ import { Button } from 'react-bootstrap';
 import { useAuth } from './AuthContext';
 import { useHistory } from 'react-router-dom';
 
+
 function LogoutForm() {
     const { logout } = useAuth();
     const history = useHistory();
 
     const handleLogout = async () => {
         try {
-            await axios.post('dj-rest-auth/logout/');
+            await axios.post("/accounts/logout/");
             logout();
             console.log('Logout successful');
             history.push('/home')

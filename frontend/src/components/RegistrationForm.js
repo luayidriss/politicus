@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import axios from 'axios';
+import { useAuth } from './AuthContext';
 import { useHistory } from 'react-router-dom';
 
 function RegistrationForm() {
     const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
+    //const [email, setEmail] = useState('');
     const [password1, setPassword1] = useState('');
     const [password2, setPassword2] = useState('');
+    const { login } = useAuth();
     const history = useHistory();
 
     const handleRegister = async () => {
         try {
-            await axios.post("/dj-rest-auth/registration/", { username, email, password1, password2 });
-            history.push("/login");
+            await axios.post("/dj-rest-auth/registration/", { username, password1, password2 });
+            login();
+            history.push("/home");
         } catch (error) {
             console.error('Sign Up error:', error);
         }
@@ -31,7 +34,7 @@ function RegistrationForm() {
                 />
             </Form.Group>
 
-            <Form.Group controlId="email">
+            {/* <Form.Group controlId="email">
                 <Form.Label>Email</Form.Label>
                 <Form.Control
                     type="email"
@@ -39,7 +42,7 @@ function RegistrationForm() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
-            </Form.Group>
+            </Form.Group> */}
 
             <Form.Group controlId="password1">
                 <Form.Label>Password</Form.Label>

@@ -8,7 +8,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { useAuth } from './AuthContext';
 
 const NavigationBar = () => {
-  const { loggedIn, logout } = useAuth();
+  const { loggedIn } = useAuth();
 
   return (
     <Navbar bg="light" expand="lg">

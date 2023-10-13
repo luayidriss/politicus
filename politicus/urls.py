@@ -30,7 +30,7 @@ urlpatterns = [
     path('api/admin/', admin.site.urls),
     path('api/profiles/', include('profiles.urls')),
     path('api/questions/', include('questions.urls')),
-    path('api/responses', include('responses.urls')),
+    path('api/responses/', include('responses.urls')),
     path('api/followers/', include('followers.urls')),
     path('accounts/', include('allauth.urls')),
 ]

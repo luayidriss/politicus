@@ -13,14 +13,6 @@ function ResponseList({ questionId }) {
             .catch((error) => {
                 console.error('Error fetching responses:', error);
             });
-        
-        axios.get('/api/current-user')
-            .then((response) => {
-                setUser(response.data);
-            })
-            .catch((error) => {
-                console.error('Error fetching current user:', error);
-            });
     }, [questionId]);
 
     const handleEdit = (responseId, newContent) => {
@@ -59,7 +51,7 @@ function ResponseList({ questionId }) {
             <ul>
                 {responses.map((response) => (
                     <li key={response.id}>
-                        {response.content}
+                        <p>{response.response}</p>
                         <p>Author: {response.user.username}</p>
 
                         {user && user.id === response.user.id && (

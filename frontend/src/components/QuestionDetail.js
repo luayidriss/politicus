@@ -21,19 +21,19 @@ function QuestionDetail() {
             });
     }, [questionId]);
 
-    // const handleEdit = () => {
-    //     history.push(`/questions/${questionId}/edit`);
-    // };
+    const handleEdit = () => {
+        history.push(`/questions/${questionId}/edit`);
+    };
 
-    // const handleDelete = () => {
-    //     axios.delete(`/api/questions/${questionId}`)
-    //         .then(() => {
-    //             history.push('/');
-    //         })
-    //         .catch((error) => {
-    //             console.error('Error deleting question:', error);
-    //         });
-    // };
+    const handleDelete = () => {
+        axios.delete(`/api/questions/${questionId}`)
+            .then(() => {
+                history.push('/');
+            })
+            .catch((error) => {
+                console.error('Error deleting question:', error);
+            });
+    };
 
     if (!question) {
         return <p>Loading...</p>;

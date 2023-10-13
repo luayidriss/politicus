@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
-    # 'allauth.socialaccount',
+    'allauth.socialaccount',
     'dj_rest_auth.registration',
     'cloudinary',
     'politicus',
@@ -76,7 +76,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -123,18 +123,18 @@ JWT_AUTH_SAMESITE = 'None'
 
 # CSRF_COOKIE_SAMESITE = 'Strict'
 
-# CSRF_TRUSTED_ORIGINS=[
-#     'https://8000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io',
-#     'https://3000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io'
-#     ]
+CSRF_TRUSTED_ORIGINS=[
+    'https://8000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io',
+    'https://3000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io'
+    ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
 
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",
-#     "https://3000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io",
-#     "https://8000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io"
-# ]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "https://3000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io",
+    "https://8000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io"
+]
 
 CORS_ALLOW_CREDENTIALS = True
 

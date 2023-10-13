@@ -54,16 +54,18 @@ function InfiniteScrollQuestions({ data }) {
           hasMore={hasMore}
           loader={<h4>Loading...</h4>}
         >
-          {questions.map((question) => (
-            <Card key={question.id} className="mb-3">
-              <Card.Body>
-                <Card.Title>{question.question}</Card.Title>
-                <Card.Text>{question.description}</Card.Text>
-                <Card.Text>User: {question.user}</Card.Text>
-                <Link to={`/questions/${question.id}`} className="btn btn-primary">View Question</Link>
-              </Card.Body>
-            </Card>
-          ))}
+          {questions.map((question) => {
+            return (
+              <Card key={question.id} className="mb-3">
+                <Card.Body>
+                  <Card.Title>{question.question}</Card.Title>
+                  <Card.Text>{question.description}</Card.Text>
+                  <Card.Text>User: {question.user}</Card.Text>
+                  <Link to={`/questions/${question.id}`} className="btn btn-primary">View Question</Link>
+                </Card.Body>
+              </Card>
+              );
+            })}
         </InfiniteScroll>
       )}
     </Container>

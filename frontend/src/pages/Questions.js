@@ -1,11 +1,11 @@
 import React from 'react';
-import QuestionForm from '../components/QuestionForm';
+import QuestionDetail from '../components/QuestionDetail';
 
 const Questions = () => {
   return (
     <div>
-      <h2>Add Questions Page</h2>
-      <QuestionForm />
+      <h2>Question Detail</h2>
+      <QuestionDetail />
     </div>
   )
   

@@ -10,7 +10,7 @@ function QuestionDetail() {
     const [question, setQuestion] = useState(null);
 
     useEffect(() => {
-        axios.get(`/api/questions/${questionId}`)
+        axios.get(`/api/questions/${ questionId }/`)
             .then((response) => {
                 setQuestion(response.data);
             })
@@ -19,41 +19,41 @@ function QuestionDetail() {
             });
     }, [questionId]);
 
-    const handleEdit = () => {
-        history.push(`/questions/${questionId}/edit`);
-    };
+    // const handleEdit = () => {
+    //     history.push(`/questions/${questionId}/edit`);
+    // };
 
-    const handleDelete = () => {
-        axios.delete(`/api/questions/${questionId}`)
-            .then(() => {
-                history.push('/');
-            })
-            .catch((error) => {
-                console.error('Error deleting question:', error);
-            });
-    };
+    // const handleDelete = () => {
+    //     axios.delete(`/api/questions/${questionId}`)
+    //         .then(() => {
+    //             history.push('/');
+    //         })
+    //         .catch((error) => {
+    //             console.error('Error deleting question:', error);
+    //         });
+    // };
+
+    if (!question) {
+        return <p>Loading...</p>;
+    }
 
     return (
         <div>
-            {question ? (
-                <div>
-                    <h2>{question.title}</h2>
-                    <p>{question.content}</p>
-                    <p>Author: {question.user.username}</p>
+            <div>
+                <h2>{question.question}</h2>
+                <p>{question.description}</p>
+                <p>Author: {question.user.username}</p>
 
-                    {question.is_owner && (
-                        <div>
-                            <button onClick={handleEdit}>Edit</button>
-                            <button onClick={handleDelete}>Delete</button>
-                        </div>
-                    )}
+                {question.is_owner && (
+                    <div>
+                        <button onClick={handleEdit}>Edit</button>
+                        <button onClick={handleDelete}>Delete</button>
+                    </div>
+                )}
 
-                    <ResponseList questionId={questionId} />
-                    <ResponseForm questionId={questionId} />
-                </div>
-            ) : (
-                <p>Loading question details...</p>
-            )}
+                <ResponseList questionId={questionId} />
+                <ResponseForm questionId={questionId} />
+            </div>
         </div>
     );
 }

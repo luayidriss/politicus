@@ -17,9 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from .views import logout_route
+from dj_rest_auth.views import LoginView
 
 urlpatterns = [
     path('dj-rest-auth/logout/', logout_route),
+    # path('rest-auth/login/', LoginView.as_view(), name='rest_login'),
+    # path('api/api-auth/', include('rest_framework.urls')),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path(
         'dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')

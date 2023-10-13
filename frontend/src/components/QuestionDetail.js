@@ -5,11 +5,13 @@ import ResponseList from './ResponseList';
 import ResponseForm from './ResponseForm';
 
 function QuestionDetail() {
+    console.log(useParams());
     const { questionId } = useParams();
     const history = useHistory();
     const [question, setQuestion] = useState(null);
 
     useEffect(() => {
+        console.log(questionId);
         axios.get(`/api/questions/${ questionId }/`)
             .then((response) => {
                 setQuestion(response.data);

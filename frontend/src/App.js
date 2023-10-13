@@ -21,8 +21,8 @@ function App() {
           <NavigationBar />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/questions" component={Questions} />
             <Route path="/questions/:questionId" component={QuestionDetail}/>
+            <Route path="/questions" component={Questions} />
             <Route path="/user-profiles" component={Profiles} />
             <Route path="/register" component={Registration} />
             <Route path="/login" component={Login} />

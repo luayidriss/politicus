@@ -55,11 +55,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'dj_rest_auth',
+    'django.contrib.sites',
     'allauth',
     'allauth.account',
-    'allauth.socialaccount',
-    # 'rest_framework_simplejwt',
-    'dj_rest_auth',
+    # 'allauth.socialaccount',
+    'dj_rest_auth.registration',
     'cloudinary',
     'politicus',
     'followers',
@@ -68,26 +69,49 @@ INSTALLED_APPS = [
     'responses',
 ]
 
+SITE_ID = 1
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "allauth.account.middleware.AccountMiddleware",
+    # "allauth.account.middleware.AccountMiddleware",
 ]
 
 
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         # 'rest_framework.authentication.SessionAuthentication' 
+#         # if DEBUG 
+#         # else 
+#         'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+#         # 'rest_framework.authentication.TokenAuthentication',
+#         # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     ],
+# }
+
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
-        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    ],
 }
+
+CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_SAMESITE = 'Lax'
+
+AUTHENTICATION_BACKENDS = [
+    'allauth.account.auth_backends.AuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+
+# REST_SESSION_LOGIN = False
 
 REST_USE_JWT = True
 JWT_AUTH_SECURE = True
@@ -95,13 +119,14 @@ JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
 
-CSRF_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
 
-CSRF_COOKIE_SAMESITE = 'Strict'
+# CSRF_COOKIE_SAMESITE = 'Strict'
 
-CSRF_TRUSTED_ORIGINS=[
-    'https://8000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io'
-    ]
+# CSRF_TRUSTED_ORIGINS=[
+#     'https://8000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io',
+#     'https://3000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io'
+#     ]
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -133,7 +158,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'politicus.wsgi.application'
 
-AUTH_USER_MODEL = "profiles.User"
+# AUTH_USER_MODEL = "profiles.User"
 
 
 # Database

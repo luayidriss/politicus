@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import InfiniteScrollQuestions from '../components/InfiniteScrollQuestions';
 import SearchBar from '../components/SearchBar';
+import InfiniteScrollQuestions from '../components/InfiniteScrollQuestions';
 import axios from 'axios';
+import { Row, Col } from 'react-bootstrap';
 
 const Home = () => {
   const [searchResults, setSearchResults] = useState([]);
+  const [feedQuestions, setFeedQuestions] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState('');
+
+  useEffect(() => {
+    loadAllQuestions();
+  }, []);
 
   const loadAllQuestions = () => {
     axios
       .get('/api/questions/')
       .then((response) => {
-        setSearchResults(response.data);
+        setFeedQuestions(response.data);
       })
       .catch((error) => {
         console.error('Error fetching questions:', error);
       });
   };
-
-  useEffect(() => {
-    // Load all questions by default
-    loadAllQuestions();
-  }, []);
 
   const handleSearch = (keyword) => {
     setSearchKeyword(keyword);
@@ -41,16 +42,19 @@ const Home = () => {
 
   return (
     <div>
-      <h2>Home</h2>
-      <SearchBar onSearch={handleSearch} />
-      {searchKeyword && searchResults.length === 0 ? (
-        <p>No questions found</p>
-      ) : (
-        <InfiniteScrollQuestions
-          data={searchKeyword ? searchResults : undefined}
-          loadAllQuestions={loadAllQuestions}
-        />
-      )}
+      <Row>
+        <Col xs={12} md={8}>
+          <SearchBar onSearch={handleSearch} />
+          {searchKeyword ? (
+            <InfiniteScrollQuestions data={searchResults} />
+          ) : (
+            <InfiniteScrollQuestions data={feedQuestions} />
+          )}
+        </Col>
+        <Col xs={12} md={4}>
+          {/* Space for trending followers component*/}
+        </Col>
+      </Row>
     </div>
   );
 };

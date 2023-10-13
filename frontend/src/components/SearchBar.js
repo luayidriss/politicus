@@ -8,7 +8,7 @@ function SearchBar({ onSearch }) {
   };
 
   return (
-    <div>
+    <div className="d-flex justify-content-center">
       <input
         type="text"
         placeholder="Search..."

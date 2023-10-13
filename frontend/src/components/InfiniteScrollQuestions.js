@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import axios from 'axios';
+import { Card, Container } from 'react-bootstrap';
 
-function InfiniteScrollQuestions({ data, isLoading, searchKeyword }) {
+function InfiniteScrollQuestions({ data }) {
   const [questions, setQuestions] = useState([]);
   const [hasMore, setHasMore] = useState(true);
-  const [searchPerformed, setSearchPerformed] = useState(false);
-  const [questionsFound, setQuestionsFound] = useState(true);
 
   const fetchMoreQuestions = async () => {
     if (!hasMore) {
@@ -15,7 +14,12 @@ function InfiniteScrollQuestions({ data, isLoading, searchKeyword }) {
     }
 
     try {
-      const response = await axios.get(`/api/questions/?offset=${questions.length}`);
+      let response;
+      if (data.length === 0) {
+        response = await axios.get(`/api/questions/?offset=${questions.length}`);
+      } else {
+        response = await axios.get(`/api/questions/?q=${data}&offset=${questions.length}`);
+      }
 
       if (response.status === 200) {
         const responseData = response.data;
@@ -35,25 +39,14 @@ function InfiniteScrollQuestions({ data, isLoading, searchKeyword }) {
   useEffect(() => {
     if (data && data.length > 0) {
       setQuestions(data);
-      setSearchPerformed(true);
-      setQuestionsFound(true);
-    } else {
-      setSearchPerformed(true);
-      setQuestionsFound(false);
     }
   }, [data]);
 
   return (
-    <div>
+    <Container>
       <h2>Infinite Scroll Questions</h2>
-      {questions.length === 0 ? (
-        isLoading ? (
-          <p>Loading...</p>
-        ) : (
-          searchPerformed && !questionsFound ? (
-            <p>No questions found</p>
-          ) : null
-        )
+      {data.length === 0 ? (
+        <p>No questions found</p>
       ) : (
         <InfiniteScroll
           dataLength={questions.length}
@@ -61,16 +54,19 @@ function InfiniteScrollQuestions({ data, isLoading, searchKeyword }) {
           hasMore={hasMore}
           loader={<h4>Loading...</h4>}
         >
-          <ul>
-            {questions.map((question) => (
-              <li key={question.id}>
-                <Link to={`/questions/${question.id}`}>{question.question}</Link>
-              </li>
-            ))}
-          </ul>
+          {questions.map((question) => (
+            <Card key={question.id} className="mb-3">
+              <Card.Body>
+                <Card.Title>{question.question}</Card.Title>
+                <Card.Text>{question.description}</Card.Text>
+                <Card.Text>User: {question.user}</Card.Text>
+                <Link to={`/questions/${question.id}`} className="btn btn-primary">View Question</Link>
+              </Card.Body>
+            </Card>
+          ))}
         </InfiniteScroll>
       )}
-    </div>
+    </Container>
   );
 }
 

@@ -3,16 +3,16 @@ import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import ResponseList from './ResponseList';
 import ResponseForm from './ResponseForm';
+import { useAuth } from './AuthContext';
 
 function QuestionDetail() {
-    console.log(useParams());
     const { questionId } = useParams();
     const history = useHistory();
     const [question, setQuestion] = useState(null);
+    const { currentUser } = useAuth();
 
     useEffect(() => {
-        console.log(questionId);
-        axios.get(`/api/questions/${ questionId }/`)
+        axios.get(`/api/questions/${questionId}/`)
             .then((response) => {
                 setQuestion(response.data);
             })
@@ -54,7 +54,7 @@ function QuestionDetail() {
                 )}
 
                 <ResponseList questionId={questionId} />
-                <ResponseForm questionId={questionId} />
+                <ResponseForm questionId={questionId} currentUser={currentUser} />
             </div>
         </div>
     );

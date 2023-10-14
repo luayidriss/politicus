@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
-    'allauth.socialaccount',
+    #'allauth.socialaccount',
     'dj_rest_auth.registration',
     'cloudinary',
     'politicus',
@@ -158,7 +158,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'politicus.wsgi.application'
 
-# AUTH_USER_MODEL = "profiles.User"
+AUTH_USER_MODEL = 'profiles.CustomUser'
 
 
 # Database

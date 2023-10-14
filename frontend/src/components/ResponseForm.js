@@ -3,7 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 
 function ResponseForm({ questionId, onAddResponse, currentUser }) {
-    const [response, setResponse] = useState('');
+    const [responseText, setResponseText] = useState('');
     const [additionalResources, setAdditionalResources] = useState('');
 
     const handleSubmit = async (e) => {
@@ -11,16 +11,16 @@ function ResponseForm({ questionId, onAddResponse, currentUser }) {
 
         try {
             const response = await axios.post(`/api/responses/`, {
-                response,
+                response: responseText,
                 additional_resources: additionalResources,
                 question: questionId,
-                user: currentUser.id,
+                user: currentUser.pk,
             });
 
             if (response.status === 201) {
-                onAddResponse(response.data);
-                setResponse('');
+                setResponseText('');
                 setAdditionalResources('');
+                window.location.reload();
             } else {
                 console.error('Failed to create response');
             }
@@ -38,8 +38,8 @@ function ResponseForm({ questionId, onAddResponse, currentUser }) {
                     <Form.Control
                         as="textarea"
                         rows={3}
-                        value={response}
-                        onChange={(e) => setResponse(e.target.value)}
+                        value={responseText}
+                        onChange={(e) => setResponseText(e.target.value)}
                         placeholder="Write your response here..."
                         required
                     />

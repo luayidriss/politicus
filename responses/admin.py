@@ -3,4 +3,4 @@ from .models import Response
 
 @admin.register(Response)
 class ResponseAdmin(admin.ModelAdmin):
-    list_display = ('response', 'question', 'user', 'additional_resources')
+    list_display = ('response', 'question', 'additional_resources')

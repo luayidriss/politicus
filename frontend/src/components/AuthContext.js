@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { axiosReq, axiosRes } from "../api/axiosDefaults";
 import { useHistory } from "react-router";
@@ -7,6 +7,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
   const history = useHistory();
 
   const handleTokenRefresh = async () => {
@@ -35,13 +36,18 @@ export const AuthProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    axiosRes.get("dj-rest-auth/user/")
-      .then(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await axios.get("dj-rest-auth/user/");
+        setCurrentUser(userData.data);
         setLoggedIn(true);
-      })
-      .catch(() => {
+      } catch (error) {
         setLoggedIn(false);
-      });
+        setCurrentUser(null);
+      }
+    };
+
+    fetchUserData();
   }, []);
 
   const login = () => {
@@ -50,10 +56,11 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setLoggedIn(false);
+    setCurrentUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ loggedIn, login, logout }}>
+    <AuthContext.Provider value={{ loggedIn, login, logout, currentUser }}>
       {children}
     </AuthContext.Provider>
   );

@@ -3,4 +3,4 @@ from .models import Question
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ('question', 'user', 'description')
+    list_display = ('question', 'description')

@@ -1,19 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function ResponseList({ questionId }) {
+function ResponseList({ questionId, currentUser }) {
     const [responses, setResponses] = useState([]);
-    const [user, setUser] = useState(null);
 
     useEffect(() => {
         axios.get(`/api/responses/?question=${questionId}`)
-            .then((response) => {
-                setResponses(response.data);
+            .then(async (response) => {
+                const responseList = response.data;
+                const updatedResponses = await Promise.all(
+                    responseList.map(async (response) => {
+                        const userDetails = await fetchUserDetailsForResponse(response.user);
+                        return { ...response, userDetails };
+                    })
+                );
+                setResponses(updatedResponses);
             })
             .catch((error) => {
                 console.error('Error fetching responses:', error);
             });
     }, [questionId]);
+
+    const fetchUserDetailsForResponse = async (userDetails) => {
+        try {
+            const userResponse = await axios.get(`dj-rest-auth/user/`);
+            return userResponse.data;
+        } catch (error) {
+            console.error('Error fetching user details:', error);
+            return {};
+        }
+    };
 
     const handleEdit = (responseId, newContent) => {
         axios.put(`/api/responses/${responseId}`, { content: newContent })
@@ -52,9 +68,8 @@ function ResponseList({ questionId }) {
                 {responses.map((response) => (
                     <li key={response.id}>
                         <p>{response.response}</p>
-                        <p>Author: {response.user.username}</p>
-
-                        {user && user.id === response.user.id && (
+                        <p>Author: {response.userDetails.username}</p>
+                        {currentUser && currentUser.pk === response.user.pk && (
                             <div>
                                 <button onClick={() => {
                                     const newContent = prompt('Edit response:', response.content);

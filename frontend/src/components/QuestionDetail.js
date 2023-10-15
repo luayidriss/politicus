@@ -11,10 +11,23 @@ function QuestionDetail() {
     const [question, setQuestion] = useState(null);
     const { currentUser } = useAuth();
 
+    const fetchUserDetailsForQuestion = async (userId) => {
+        try {
+            const userResponse = await axios.get(`/api/profiles/${userId}`);
+            return userResponse.data;
+        } catch (error) {
+            console.error('Error fetching user details for question author:', error);
+            return {};
+        }
+    };
+
     useEffect(() => {
         axios.get(`/api/questions/${questionId}/`)
-            .then((response) => {
-                setQuestion(response.data);
+            .then(async (response) => {
+                const questionData = response.data;
+                const userDetails = await fetchUserDetailsForQuestion(questionData.user);
+                questionData.userDetails = userDetails;
+                setQuestion(questionData);
             })
             .catch((error) => {
                 console.error('Error fetching question details:', error);
@@ -44,7 +57,7 @@ function QuestionDetail() {
             <div>
                 <h2>{question.question}</h2>
                 <p>{question.description}</p>
-                <p>Author: {question.user.username}</p>
+                <p>Author: {question.userDetails.username}</p>
 
                 {question.is_owner && (
                     <div>

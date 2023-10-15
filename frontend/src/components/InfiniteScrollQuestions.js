@@ -26,7 +26,8 @@ function InfiniteScrollQuestions({ data }) {
         if (responseData.length === 0) {
           setHasMore(false);
         } else {
-          setQuestions([...questions, ...responseData]);
+          const updatedQuestions = await fetchUserDetailsForQuestions(responseData);
+          setQuestions([...questions, ...updatedQuestions]);
         }
       } else {
         console.error('Failed to fetch more questions');
@@ -36,9 +37,30 @@ function InfiniteScrollQuestions({ data }) {
     }
   }
 
+  const fetchUserDetailsForQuestions = async (questionData) => {
+    const userDetails = await Promise.all(
+      questionData.map(async (question) => {
+        try {
+          const userResponse = await axios.get(`/api/profiles/${question.user}`);
+          return userResponse.data;
+        } catch (error) {
+          console.error('Error fetching user details for question author:', error);
+          return {};
+        }
+      })
+    );
+
+    return questionData.map((question, index) => ({
+      ...question,
+      userDetails: userDetails[index],
+    }));
+  };
+
   useEffect(() => {
     if (data && data.length > 0) {
-      setQuestions(data);
+      fetchUserDetailsForQuestions(data).then((updatedQuestions) => {
+        setQuestions(updatedQuestions);
+      });
     }
   }, [data]);
 
@@ -60,12 +82,12 @@ function InfiniteScrollQuestions({ data }) {
                 <Card.Body>
                   <Card.Title>{question.question}</Card.Title>
                   <Card.Text>{question.description}</Card.Text>
-                  <Card.Text>User: {question.user}</Card.Text>
+                  <Card.Text>User: {question.userDetails?.username}</Card.Text>
                   <Link to={`/questions/${question.id}`} className="btn btn-primary">View Question</Link>
                 </Card.Body>
               </Card>
-              );
-            })}
+            );
+          })}
         </InfiniteScroll>
       )}
     </Container>

@@ -21,9 +21,9 @@ function ResponseList({ questionId, currentUser }) {
             });
     }, [questionId]);
 
-    const fetchUserDetailsForResponse = async (userDetails) => {
+    const fetchUserDetailsForResponse = async (userId) => {
         try {
-            const userResponse = await axios.get(`dj-rest-auth/user/`);
+            const userResponse = await axios.get(`/api/profiles/${userId}`);
             return userResponse.data;
         } catch (error) {
             console.error('Error fetching user details:', error);

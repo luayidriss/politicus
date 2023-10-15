@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
 import Home from './pages/Home';
 import Questions from './pages/Questions';
-import Profiles from './pages/Profiles';
+import Profile from './pages/Profile';
 import Registration from './pages/Registration';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
@@ -22,8 +22,8 @@ function App() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/questions/:questionId" component={QuestionDetail}/>
+            <Route path="/profile/:userId" component={Profile} />
             <Route path="/questions" component={Questions} />
-            <Route path="/user-profiles" component={Profiles} />
             <Route path="/register" component={Registration} />
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />

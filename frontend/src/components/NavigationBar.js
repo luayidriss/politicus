@@ -1,14 +1,13 @@
-// NavigationBar.js
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useAuth } from './AuthContext';
 
 const NavigationBar = () => {
-  const { loggedIn } = useAuth();
+  const { loggedIn, currentUser } = useAuth();
 
   return (
     <Navbar bg="light" expand="lg">
@@ -18,13 +17,15 @@ const NavigationBar = () => {
             <Link to="/" className="nav-link">Home</Link>
           </Nav.Item>
           {loggedIn && (
-          <Nav.Item>
-            <Link to="/questions" className="nav-link"> Add Questions</Link>
-          </Nav.Item>
+            <NavDropdown title="Profile" id="basic-nav-dropdown">
+              <NavDropdown.Item>
+                <Link to="/questions" className="nav-link">Add Questions</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link to={`/profile/${currentUser.pk}/`} className="nav-link">My Profile</Link>
+              </NavDropdown.Item>
+            </NavDropdown>
           )}
-          <Nav.Item>
-            <Link to="/user-profiles" className="nav-link">My Profile</Link>
-          </Nav.Item>
         </Nav>
         <Nav className="ml-auto">
           {!loggedIn && (
@@ -39,7 +40,7 @@ const NavigationBar = () => {
           )}
           {loggedIn && (
             <Nav.Item>
-              <Link to="/logout"className="nav-link">Sign Out</Link>
+              <Link to="/logout" className="nav-link">Sign Out</Link>
             </Nav.Item>
           )}
         </Nav>

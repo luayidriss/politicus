@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Card, Tabs, Tab } from 'react-bootstrap';
 import axios from 'axios';
 
-const UserProfile = () => {
+const UserProfile = ({ currentuser }) => {
   const [user, setUser] = useState({});
   const [profileImage, setProfileImage] = useState(null);
   const [questionCount, setQuestionCount] = useState(0);
@@ -11,10 +11,10 @@ const UserProfile = () => {
   const [followingCount, setFollowingCount] = useState(0);
 
   useEffect(() => {
-    axios.get('/api/profiles/')
+    axios.get(`/api/profiles/${currentuser.pk}/`)
       .then((response) => {
         setUser(response.data);
-        setProfileImage(response.data.profile_image);
+        setProfileImage(response.data.profile_picture);
       })
       .catch((error) => {
         console.error('Error fetching user data:', error);
@@ -52,7 +52,7 @@ const UserProfile = () => {
       .catch((error) => {
         console.error('Error fetching following count:', error);
       });
-  }, []);
+  }, [currentuser]);
 
   return (
     <Container className="mt-4">

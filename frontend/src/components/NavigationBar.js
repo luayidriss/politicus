@@ -21,14 +21,14 @@ const NavigationBar = () => {
               <NavDropdown.Item>
                 <Link to="/questions" className="nav-link">Add Questions</Link>
               </NavDropdown.Item>
-                <NavDropdown.Item>
-                  <Link to={`/profile/${currentUser.pk}/`} className="nav-link">My Profile</Link>
-                </NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link to={`/profile/${currentUser.pk}/`} className="nav-link">My Profile</Link>
+              </NavDropdown.Item>
             </NavDropdown>
-          )}
+          ) }
         </Nav>
         <Nav className="ml-auto">
-          {!loggedIn && (
+          {!loggedIn ? (
             <>
               <Nav.Item>
                 <Link to="/register" className="nav-link">Sign Up</Link>
@@ -37,8 +37,7 @@ const NavigationBar = () => {
                 <Link to="/login" className="nav-link">Sign In</Link>
               </Nav.Item>
             </>
-          )}
-          {loggedIn && (
+          ) : (
             <Nav.Item>
               <Link to="/logout" className="nav-link">Sign Out</Link>
             </Nav.Item>

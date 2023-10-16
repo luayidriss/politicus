@@ -66,7 +66,7 @@ function QuestionList({ data }) {
 
   return (
     <Container>
-      <h2>Infinite Scroll Questions</h2>
+      <h2>Questions</h2>
       {data.length === 0 ? (
         <p>No questions found</p>
       ) : (

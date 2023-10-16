@@ -50,8 +50,15 @@ export const AuthProvider = ({ children }) => {
     fetchUserData();
   }, []);
 
-  const login = () => {
-    setLoggedIn(true);
+  const login = async () => {
+    try {
+      const userData = await axios.get("dj-rest-auth/user/");
+      setCurrentUser(userData.data);
+      setLoggedIn(true);
+    } catch (error) {
+      setLoggedIn(false);
+      setCurrentUser(null);
+    }
   };
 
   const logout = () => {

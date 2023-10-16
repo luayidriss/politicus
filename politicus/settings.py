@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
-    #'allauth.socialaccount',
+    'allauth.socialaccount',
     'dj_rest_auth.registration',
     'cloudinary',
     'politicus',
@@ -187,6 +187,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Email Verification
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = None
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

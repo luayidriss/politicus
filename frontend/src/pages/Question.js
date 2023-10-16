@@ -1,7 +1,7 @@
 import React from 'react';
 import QuestionDetail from '../components/QuestionDetail';
 
-const Questions = () => {
+const Question = () => {
   return (
     <div>
       <h2>Question Detail</h2>
@@ -11,4 +11,4 @@ const Questions = () => {
   
 };
 
-export default Questions;
+export default Question;

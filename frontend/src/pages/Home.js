@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SearchBar from '../components/SearchBar';
-import InfiniteScrollQuestions from '../components/InfiniteScrollQuestions';
+import QuestionList from '../components/QuestionList';
 import axios from 'axios';
 import { Row, Col } from 'react-bootstrap';
 
@@ -46,9 +46,9 @@ const Home = () => {
         <Col xs={12} md={8}>
           <SearchBar onSearch={handleSearch} />
           {searchKeyword ? (
-            <InfiniteScrollQuestions data={searchResults} />
+            <QuestionList data={searchResults} />
           ) : (
-            <InfiniteScrollQuestions data={feedQuestions} />
+            <QuestionList data={feedQuestions} />
           )}
         </Col>
         <Col xs={12} md={4}>

@@ -4,7 +4,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import axios from 'axios';
 import { Card, Container } from 'react-bootstrap';
 
-function InfiniteScrollQuestions({ data }) {
+function QuestionList({ data }) {
   const [questions, setQuestions] = useState([]);
   const [hasMore, setHasMore] = useState(true);
 
@@ -94,4 +94,4 @@ function InfiniteScrollQuestions({ data }) {
   );
 }
 
-export default InfiniteScrollQuestions;
+export default QuestionList;

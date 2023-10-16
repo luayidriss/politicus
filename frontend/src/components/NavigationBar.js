@@ -21,9 +21,9 @@ const NavigationBar = () => {
               <NavDropdown.Item>
                 <Link to="/questions" className="nav-link">Add Questions</Link>
               </NavDropdown.Item>
-              <NavDropdown.Item>
-                <Link to={`/profile/${currentUser.pk}/`} className="nav-link">My Profile</Link>
-              </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link to={`/profile/${currentUser.pk}/`} className="nav-link">My Profile</Link>
+                </NavDropdown.Item>
             </NavDropdown>
           )}
         </Nav>

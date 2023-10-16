@@ -26,3 +26,10 @@ class ResponsesByQuestionView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+class UserResponsesListView(generics.ListCreateAPIView):
+    serializer_class = ResponseSerializer
+
+    def get_queryset(self):
+        user_id = self.kwargs.get('user_id')
+        return Response.objects.filter(user=user_id)

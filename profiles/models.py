@@ -35,13 +35,13 @@ class CustomUser(AbstractUser):
     email = models.EmailField(max_length=254, unique=True)
     username = models.CharField(max_length=150, unique=True)
     birth_date = models.DateField(null=True, blank=True)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    country = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=50, blank=True)
+    last_name = models.CharField(max_length=50, blank=True)
+    country = models.CharField(max_length=100, blank=True)
 
-    groups = models.ManyToManyField(Group, related_name="customuser_set", related_query_name="customuser")
+    groups = models.ManyToManyField(Group, related_name="customuser_set", related_query_name="customuser", blank=True)
     user_permissions = models.ManyToManyField(
-        Permission, related_name="customuser_set", related_query_name="customuser"
+        Permission, related_name="customuser_set", related_query_name="customuser", blank=True
     )
 
     date_joined = models.DateTimeField(default=timezone.now)

@@ -18,3 +18,10 @@ class QuestionDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
 
+class UserQuestionsListView(generics.ListCreateAPIView):
+    serializer_class = QuestionSerializer
+
+    def get_queryset(self):
+        user_id = self.kwargs.get('user_id')
+        return Question.objects.filter(user=user_id)
+

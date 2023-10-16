@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Card, Tabs, Tab } from 'react-bootstrap';
 import UserQuestions from './UserQuestions';
+import UserResponses from './UserResponses'; 
 import axios from 'axios';
 
 const UserProfile = ({ userId }) => {
@@ -21,6 +22,16 @@ const UserProfile = ({ userId }) => {
       });
   };
 
+  const fetchUserResponses = () => {
+    axios.get(`/api/responses/user/${userId}/`)
+      .then((response) => {
+        setResponseCount(response.data.length);
+      })
+      .catch((error) => {
+        console.error('Error fetching user responses:', error);
+      });
+  };
+
   useEffect(() => {
     axios.get(`/api/profiles/${userId}/`)
       .then((response) => {
@@ -29,14 +40,6 @@ const UserProfile = ({ userId }) => {
       })
       .catch((error) => {
         console.error('Error fetching user data:', error);
-      });
-
-    axios.get('/api/responses/count/')
-      .then((response) => {
-        setResponseCount(response.data.count);
-      })
-      .catch((error) => {
-        console.error('Error fetching response count:', error);
       });
 
     axios.get('/api/followers/followers-count/')
@@ -56,6 +59,7 @@ const UserProfile = ({ userId }) => {
       });
 
     fetchUserQuestions();
+    fetchUserResponses();
   }, [userId]);
 
   return (
@@ -81,6 +85,7 @@ const UserProfile = ({ userId }) => {
           <UserQuestions userId={userId} />
         </Tab>
         <Tab eventKey="responses" title={`Responses (${responseCount})`}>
+          <UserResponses userId={userId} />
         </Tab>
       </Tabs>
     </Container>

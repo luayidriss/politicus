@@ -82,7 +82,7 @@ function QuestionList({ data }) {
                 <Card.Body>
                   <Card.Title>{question.question}</Card.Title>
                   <Card.Text>{question.description}</Card.Text>
-                  <Card.Text>User: {question.userDetails?.username}</Card.Text>
+                  <Card.Text>Author: <Link to={`/profile/${question.user}`}>{question.userDetails.username}</Link></Card.Text>
                   <Link to={`/questions/${question.id}`} className="btn btn-primary">View Question</Link>
                 </Card.Body>
               </Card>

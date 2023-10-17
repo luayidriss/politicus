@@ -4,6 +4,7 @@ import axios from 'axios';
 import ResponseList from './ResponseList';
 import ResponseForm from './ResponseForm';
 import { useAuth } from './AuthContext';
+import { Link } from 'react-router-dom';
 
 function QuestionDetail() {
     const { questionId } = useParams();
@@ -57,7 +58,10 @@ function QuestionDetail() {
             <div>
                 <h2>{question.question}</h2>
                 <p>{question.description}</p>
-                <p>Author: {question.userDetails.username}</p>
+                <p>
+                    Author: <Link to={`/profile/${question.user}`}>{question.userDetails.username}</Link>
+                </p>
+
 
                 {question.is_owner && (
                     <div>

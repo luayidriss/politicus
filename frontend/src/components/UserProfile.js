@@ -9,8 +9,8 @@ const UserProfile = ({ userId }) => {
   const [profileImage, setProfileImage] = useState(null);
   const [questionCount, setQuestionCount] = useState(0);
   const [responseCount, setResponseCount] = useState(0);
-  const [followersCount, setFollowersCount] = useState(0);
-  const [followingCount, setFollowingCount] = useState(0);
+  const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
 
   const fetchUserQuestions = () => {
     axios.get(`/api/questions/user/${userId}/`)
@@ -42,20 +42,20 @@ const UserProfile = ({ userId }) => {
         console.error('Error fetching user data:', error);
       });
 
-    axios.get('/api/followers/followers-count/')
+      axios.get(`/api/followers/followers/${userId}/`)
       .then((response) => {
-        setFollowersCount(response.data.count);
+        setFollowers(response.data);
       })
       .catch((error) => {
-        console.error('Error fetching followers count:', error);
+        console.error('Error fetching followers:', error);
       });
 
-    axios.get('/api/followers/following-count/')
+    axios.get(`/api/followers/following/${userId}/`)
       .then((response) => {
-        setFollowingCount(response.data.count);
+        setFollowing(response.data);
       })
       .catch((error) => {
-        console.error('Error fetching following count:', error);
+        console.error('Error fetching following:', error);
       });
 
     fetchUserQuestions();
@@ -68,8 +68,8 @@ const UserProfile = ({ userId }) => {
       <Card>
         <Card.Body>
           <Card.Title>Username: {user.username}</Card.Title>
-          <Card.Text>Followers: {followersCount}</Card.Text>
-          <Card.Text>Following: {followingCount}</Card.Text>
+          <Card.Text>Followers: {followers.length}</Card.Text>
+          <Card.Text>Following: {following.length}</Card.Text>
           {profileImage && (
             <Card.Img
               src={profileImage}

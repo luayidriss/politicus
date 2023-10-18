@@ -10,6 +10,7 @@ import Registration from './pages/Registration';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
 import QuestionDetail from './components/QuestionDetail';
+import EditProfile from './components/EditProfile';
 import "./api/axiosDefaults";
 import { AuthProvider } from './components/AuthContext';
 
@@ -23,6 +24,7 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route path="/questions/:questionId" component={QuestionDetail}/>
             <Route path="/profile/:userId" component={Profile} />
+            <Route path="/user/edit" component={EditProfile} />
             <Route path="/questions" component={Question} />
             <Route path="/register" component={Registration} />
             <Route path="/login" component={Login} />

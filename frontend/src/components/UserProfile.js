@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Card, Tabs, Tab } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+import { Container, Card, Tabs, Tab, Button } from 'react-bootstrap';
 import FollowButton from './FollowButton';
 import UserQuestions from './UserQuestions'
 import UserResponses from './UserResponses'
@@ -16,6 +17,7 @@ const UserProfile = ({ userId }) => {
   const [following, setFollowing] = useState([]);
   const [isFollowing, setIsFollowing] = useState(false);
   const isCurrentUser = currentUser && currentUser.pk === userId;
+  const history = useHistory();
 
   const fetchUserQuestions = () => {
     setTimeout(() => {
@@ -41,14 +43,16 @@ const UserProfile = ({ userId }) => {
     }, 1000);
   };
 
+  const navigateToEditProfile = () => {
+    history.push('/user/edit/');
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const userData = await axios.get(`/api/profiles/${userId}/`);
         setUser(userData.data);
         setProfileImage(userData.data.profile_picture);
-
-        // Add timeouts between each request
         setTimeout(() => {
           axios.get(`/api/followers/followers/${userId}/`)
             .then((followersData) => {
@@ -118,6 +122,7 @@ const UserProfile = ({ userId }) => {
               className="img-fluid rounded-circle"
             />
           )}
+            <Button onClick={navigateToEditProfile}>Edit Profile</Button>
         </Card.Body>
       </Card>
 

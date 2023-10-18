@@ -21,7 +21,7 @@ function RegistrationForm() {
                 password2,
             });
             login();
-            history.push("/home");
+            history.push("/");
         } catch (error) {
             console.error('Sign Up error:', error);
         }

@@ -5,3 +5,5 @@ class UserFollowSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserFollow
         fields = '__all__'
+        read_only_fields = ['follower', 'following']
+

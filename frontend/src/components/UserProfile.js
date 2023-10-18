@@ -1,66 +1,102 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Card, Tabs, Tab } from 'react-bootstrap';
-import UserQuestions from './UserQuestions';
-import UserResponses from './UserResponses'; 
+import FollowButton from './FollowButton';
+import UserQuestions from './UserQuestions'
+import UserResponses from './UserResponses'
 import axios from 'axios';
+import { useAuth } from './AuthContext';
 
 const UserProfile = ({ userId }) => {
+  const { currentUser } = useAuth();
   const [user, setUser] = useState({});
   const [profileImage, setProfileImage] = useState(null);
   const [questionCount, setQuestionCount] = useState(0);
   const [responseCount, setResponseCount] = useState(0);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const isCurrentUser = currentUser && currentUser.pk === userId;
 
   const fetchUserQuestions = () => {
-    axios.get(`/api/questions/user/${userId}/`)
-      .then((response) => {
-        setQuestionCount(response.data.length);
-      })
-      .catch((error) => {
-        console.error('Error fetching user questions:', error);
-      });
+    setTimeout(() => {
+      axios.get(`/api/questions/user/${userId}/`)
+        .then((response) => {
+          setQuestionCount(response.data.length);
+        })
+        .catch((error) => {
+          console.error('Error fetching user questions:', error);
+        });
+    }, 500);
   };
 
   const fetchUserResponses = () => {
-    axios.get(`/api/responses/user/${userId}/`)
-      .then((response) => {
-        setResponseCount(response.data.length);
-      })
-      .catch((error) => {
-        console.error('Error fetching user responses:', error);
-      });
+    setTimeout(() => {
+      axios.get(`/api/responses/user/${userId}/`)
+        .then((response) => {
+          setResponseCount(response.data.length);
+        })
+        .catch((error) => {
+          console.error('Error fetching user responses:', error);
+        });
+    }, 1000);
   };
 
   useEffect(() => {
-    axios.get(`/api/profiles/${userId}/`)
-      .then((response) => {
-        setUser(response.data);
-        setProfileImage(response.data.profile_picture);
-      })
-      .catch((error) => {
+    const fetchData = async () => {
+      try {
+        const userData = await axios.get(`/api/profiles/${userId}/`);
+        setUser(userData.data);
+        setProfileImage(userData.data.profile_picture);
+
+        // Add timeouts between each request
+        setTimeout(() => {
+          axios.get(`/api/followers/followers/${userId}/`)
+            .then((followersData) => {
+              setFollowers(followersData.data);
+            })
+            .catch((error) => {
+              console.error('Error fetching followers:', error);
+            });
+        }, 1500);
+
+        setTimeout(() => {
+          axios.get(`/api/followers/following/${userId}/`)
+            .then((followingData) => {
+              setFollowing(followingData.data);
+            })
+            .catch((error) => {
+              console.error('Error fetching following:', error);
+            });
+        }, 2000);
+
+        if (!isCurrentUser && currentUser) {
+          setTimeout(() => {
+            axios.get(`/api/followers/followers/${userId}/`)
+              .then((followersData) => {
+                const currentUserFollows = followersData.data.some(follower => follower.follower === currentUser.id);
+                setIsFollowing(currentUserFollows);
+              })
+              .catch((error) => {
+                console.error('Error checking if following:', error);
+              });
+          }, 2500);
+        }
+
+        setTimeout(() => {
+          fetchUserQuestions();
+          fetchUserResponses();
+        }, 3000);
+      } catch (error) {
         console.error('Error fetching user data:', error);
-      });
+      }
+    };
 
-      axios.get(`/api/followers/followers/${userId}/`)
-      .then((response) => {
-        setFollowers(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching followers:', error);
-      });
+    fetchData();
+  }, [userId, currentUser, isCurrentUser]);
 
-    axios.get(`/api/followers/following/${userId}/`)
-      .then((response) => {
-        setFollowing(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching following:', error);
-      });
-
-    fetchUserQuestions();
-    fetchUserResponses();
-  }, [userId]);
+  const handleToggleFollow = (followStatus) => {
+    setIsFollowing(followStatus);
+  };
 
   return (
     <Container className="mt-4">
@@ -70,6 +106,11 @@ const UserProfile = ({ userId }) => {
           <Card.Title>Username: {user.username}</Card.Title>
           <Card.Text>Followers: {followers.length}</Card.Text>
           <Card.Text>Following: {following.length}</Card.Text>
+          {!isCurrentUser && currentUser && (
+            <Card.Text>
+              <FollowButton userId={userId} isFollowing={isFollowing} onToggleFollow={handleToggleFollow} />
+            </Card.Text>
+          )}
           {profileImage && (
             <Card.Img
               src={profileImage}

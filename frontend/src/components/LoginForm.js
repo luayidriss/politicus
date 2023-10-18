@@ -16,7 +16,7 @@ function LoginForm() {
             const response = await axios.post('dj-rest-auth/login/', { username, password });
             login();
             console.log('Login successful:', response.data);
-            history.push('/home')
+            history.push('/')
         } catch (error) {
             console.error('Login error:', error);
         }

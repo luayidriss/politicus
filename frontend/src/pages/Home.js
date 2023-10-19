@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SearchBar from '../components/SearchBar';
 import QuestionList from '../components/QuestionList';
+import FollowerList from '../components/FollowerList';
 import axios from 'axios';
 import { Row, Col } from 'react-bootstrap';
 
@@ -52,7 +53,7 @@ const Home = () => {
           )}
         </Col>
         <Col xs={12} md={4}>
-          {/* Space for trending followers component*/}
+          <FollowerList />
         </Col>
       </Row>
     </div>

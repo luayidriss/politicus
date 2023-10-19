@@ -16,7 +16,7 @@ const UserProfile = ({ userId }) => {
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
   const [isFollowing, setIsFollowing] = useState(false);
-  const isCurrentUser = currentUser && currentUser.pk === userId;
+  const isCurrentUser = currentUser && currentUser.pk === parseInt(userId, 10);
   const history = useHistory();
 
   const fetchUserQuestions = () => {
@@ -122,7 +122,9 @@ const UserProfile = ({ userId }) => {
               className="img-fluid rounded-circle"
             />
           )}
+          {isCurrentUser && currentUser && (
             <Button onClick={navigateToEditProfile}>Edit Profile</Button>
+          )}
         </Card.Body>
       </Card>
 

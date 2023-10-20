@@ -35,7 +35,7 @@ function QuestionDetail() {
             });
     }, [questionId]);
 
-    const handleEdit = () => {
+    const navigateToEditQuestion = () => {
         history.push(`/questions/${questionId}/edit`);
     };
 
@@ -53,6 +53,8 @@ function QuestionDetail() {
         return <p>Loading...</p>;
     }
 
+    const isOwner = currentUser && currentUser.pk === question.user;
+
     return (
         <div>
             <div>
@@ -62,10 +64,9 @@ function QuestionDetail() {
                     Author: <Link to={`/profile/${question.user}`}>{question.userDetails.username}</Link>
                 </p>
 
-
-                {question.is_owner && (
+                {isOwner && (
                     <div>
-                        <button onClick={handleEdit}>Edit</button>
+                        <button onClick={navigateToEditQuestion}>Edit</button>
                         <button onClick={handleDelete}>Delete</button>
                     </div>
                 )}

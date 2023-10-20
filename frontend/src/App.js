@@ -1,4 +1,3 @@
-import './App.css';
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -12,30 +11,36 @@ import Logout from './pages/Logout';
 import QuestionDetail from './components/QuestionDetail';
 import EditProfile from './components/EditProfile';
 import QuestionForm from './components/QuestionForm';
-import "./api/axiosDefaults";
+import './api/axiosDefaults';
 import { AuthProvider } from './components/AuthContext';
 
 function App() {
-  return (
-    <Router>
-      <AuthProvider>
-        <div>
-          <NavigationBar />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/questions/:questionId" component={QuestionDetail}/>
-            <Route path="/profile/:userId" component={Profile} />
-            <Route path="/user/edit" component={EditProfile} />
-            <Route path='/add-question' component={QuestionForm} />
-            <Route path="/questions" component={Question} />
-            <Route path="/register" component={Registration} />
-            <Route path="/login" component={Login} />
-            <Route path="/logout" component={Logout} />
-          </Switch>
-        </div>
-      </AuthProvider>
-    </Router>
-  );
+    return (
+        <Router>
+            <AuthProvider>
+                <div>
+                    <NavigationBar />
+                    <Switch>
+                        <Route exact path="/" component={Home} />
+                        <Route
+                            path="/questions/:questionId/edit"
+                            render={({ match }) => (
+                                <QuestionForm questionId={match.params.questionId} />
+                            )}
+                        />
+                        <Route path="/questions/:questionId" component={QuestionDetail} />
+                        <Route path="/profile/:userId" component={Profile} />
+                        <Route path="/user/edit" component={EditProfile} />
+                        <Route path='/add-question' component={QuestionForm} />
+                        <Route path="/questions" component={Question} />
+                        <Route path="/register" component={Registration} />
+                        <Route path="/login" component={Login} />
+                        <Route path="/logout" component={Logout} />
+                    </Switch>
+                </div>
+            </AuthProvider>
+        </Router>
+    );
 }
 
 export default App;

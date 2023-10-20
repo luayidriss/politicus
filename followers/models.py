@@ -7,7 +7,7 @@ class UserFollow(models.Model):
     following = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='followers_set')
     
     class Meta:
-        unique_together = ['follower', 'following']
+        unique_together = []
 
     def __str__(self):
         return f'{self.follower.username} follows {self.following.username}'

@@ -77,7 +77,9 @@ const UserProfile = ({ userId }) => {
           setTimeout(() => {
             axios.get(`/api/followers/followers/${userId}/`)
               .then((followersData) => {
-                const currentUserFollows = followersData.data.some(follower => follower.follower === currentUser.id);
+                const currentUserFollows = followersData.data.some(follower => {
+                  return follower.follower === currentUser.pk;
+                });
                 setIsFollowing(currentUserFollows);
               })
               .catch((error) => {

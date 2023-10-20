@@ -19,7 +19,7 @@ const NavigationBar = () => {
           {loggedIn && (
             <NavDropdown title="Profile" id="basic-nav-dropdown">
               <NavDropdown.Item>
-                <Link to="/questions" className="nav-link">Add Questions</Link>
+                <Link to="/add-question" className="nav-link">Add Questions</Link>
               </NavDropdown.Item>
               <NavDropdown.Item>
                 <Link to={`/profile/${currentUser.pk}/`} className="nav-link">My Profile</Link>

@@ -7,7 +7,7 @@ from .serializers import UserFollowSerializer
 from profiles.models import CustomUser
 from django.shortcuts import get_object_or_404
 
-class UserFollowersListView(generics.ListCreateAPIView):
+class UserFollowersListView(generics.ListAPIView):
     serializer_class = UserFollowSerializer
 
     def get_queryset(self):
@@ -15,12 +15,7 @@ class UserFollowersListView(generics.ListCreateAPIView):
         user = get_object_or_404(CustomUser, pk=user_id)
         return UserFollow.objects.filter(following=user)
 
-    def perform_create(self, serializer):
-        user_id = self.kwargs.get('user_id')
-        following_user = get_object_or_404(CustomUser, pk=user_id)
-        serializer.save(follower=self.request.user, following=following_user)
-
-class UserFollowingListView(generics.ListCreateAPIView):
+class UserFollowingListView(generics.ListAPIView):
     serializer_class = UserFollowSerializer
 
     def get_queryset(self):
@@ -28,29 +23,31 @@ class UserFollowingListView(generics.ListCreateAPIView):
         user = get_object_or_404(CustomUser, pk=user_id)
         return UserFollow.objects.filter(follower=user)
 
-    def perform_create(self, serializer):
-        user_id = self.kwargs.get('user_id')
-        follower_user = get_object_or_404(CustomUser, pk=user_id)
-        serializer.save(follower=follower_user, following=self.request.user)
-
-@api_view(['POST', 'DELETE'])
+@api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def toggle_follow(request, user_id):
+def follow_user(request, user_id):
     user_to_follow = get_object_or_404(CustomUser, pk=user_id)
+    follower = request.user
+    if UserFollow.objects.filter(follower=follower, following=user_to_follow).exists():
+        return Response({'detail': 'You are already following this user.'}, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        user_follow, created = UserFollow.objects.get_or_create(follower=follower, following=user_to_follow)
+        if created:
+            return Response({'detail': 'Followed successfully'}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'detail': 'User follow relationship already exists.'}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return Response({'detail': f'Error creating UserFollow: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def unfollow_user(request, user_id):
+    user_to_unfollow = get_object_or_404(CustomUser, pk=user_id)
     follower = request.user
 
     try:
-        follow_relationship = UserFollow.objects.get(follower=follower, following=user_to_follow)
-
-        if request.method == 'DELETE':
-            follow_relationship.delete()
-            return Response({'detail': 'Unfollowed successfully'}, status=status.HTTP_204_NO_CONTENT)
-
+        follow_relationship = UserFollow.objects.get(follower=follower, following=user_to_unfollow)
+        follow_relationship.delete()
+        return Response({'detail': 'Unfollowed successfully'}, status=status.HTTP_204_NO_CONTENT)
     except UserFollow.DoesNotExist:
-        if request.method == 'POST':
-            serializer = UserFollowSerializer(data={'follower': follower, 'following': user_to_follow})
-            if serializer.is_valid():
-                serializer.save()
-                return Response({'detail': 'Followed successfully'}, status=status.HTTP_201_CREATED)
-
-    return Response({'detail': 'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'detail': 'You are not following this user.'}, status=status.HTTP_400_BAD_REQUEST)

@@ -3,6 +3,7 @@ import axios from 'axios';
 
 function FollowButton({ userId, isFollowing, onToggleFollow }) {
   const [loading, setLoading] = useState(false);
+  console.log(isFollowing)
 
   const toggleFollow = async () => {
     if (loading) return;
@@ -11,7 +12,7 @@ function FollowButton({ userId, isFollowing, onToggleFollow }) {
 
     try {
       if (isFollowing) {
-        await axios.delete(`/api/followers/follow/${userId}/`);
+        await axios.delete(`/api/followers/unfollow/${userId}/`);
       } else {
         await axios.post(`/api/followers/follow/${userId}/`);
       }

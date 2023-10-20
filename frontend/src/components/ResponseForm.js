@@ -2,45 +2,61 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 
-function ResponseForm({ questionId, onAddResponse, currentUser }) {
-    const [responseText, setResponseText] = useState('');
-    const [additionalResources, setAdditionalResources] = useState('');
+function ResponseForm({ questionId, onAddResponse, currentUser, editableResponse, onCancelEdit, refreshResponses }) {
+    const [responseText, setResponseText] = useState(editableResponse ? editableResponse.response : '');
+    const [additionalResources, setAdditionalResources] = useState(
+        editableResponse ? (editableResponse.additional_resources || '') : ''
+    );
+
+    const isEditing = !!editableResponse;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post(`/api/responses/`, {
-                response: responseText,
-                additional_resources: additionalResources,
-                question: questionId,
-                user: currentUser.pk,
-            });
-
-            if (response.status === 201) {
-                setResponseText('');
-                setAdditionalResources('');
-                window.location.reload();
+            if (isEditing) {
+                await axios.put(`/api/responses/${editableResponse.id}`, {
+                    response: responseText,
+                    additional_resources: additionalResources,
+                });
+                onCancelEdit();
+                refreshResponses(); // Refresh responses after editing
             } else {
-                console.error('Failed to create response');
+                const questionDetails = await axios.get(`/api/questions/${questionId}`);
+                const question = questionDetails.data;
+
+                const response = await axios.post(`/api/responses/question/${questionId}/`, {
+                    response: responseText,
+                    additional_resources: additionalResources,
+                    question: question,
+                    user: currentUser.pk,
+                });
+
+                if (response.status === 201) {
+                    setResponseText('');
+                    setAdditionalResources('');
+                    onAddResponse(response.data);
+                    refreshResponses();
+                } else {
+                    console.error('Failed to create response');
+                }
             }
         } catch (error) {
-            console.error('Error creating response:', error);
+            console.error(`Error ${isEditing ? 'editing' : 'creating'} response:`, error);
         }
     };
 
     return (
         <div>
-            <h3>Add a Response</h3>
+            <h3>{isEditing ? 'Edit Response' : 'Add a Response'}</h3>
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="response">
-                    <Form.Label>Your Response</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={3}
                         value={responseText}
                         onChange={(e) => setResponseText(e.target.value)}
-                        placeholder="Write your response here..."
+                        placeholder={`Write your ${isEditing ? 'edited response' : 'response'} here...`}
                         required
                     />
                 </Form.Group>
@@ -56,8 +72,13 @@ function ResponseForm({ questionId, onAddResponse, currentUser }) {
                 </Form.Group>
 
                 <Button variant="primary" type="submit">
-                    Submit
+                    {isEditing ? 'Save' : 'Submit'}
                 </Button>
+                {isEditing && (
+                    <Button variant="secondary" onClick={onCancelEdit}>
+                        Cancel
+                    </Button>
+                )}
             </Form>
         </div>
     );

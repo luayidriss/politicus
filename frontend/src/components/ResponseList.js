@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function ResponseList({ questionId, currentUser }) {
+function ResponseList({ questionId, currentUser, onEditResponse, refreshResponses }) {
     const [responses, setResponses] = useState([]);
 
     useEffect(() => {
@@ -31,14 +31,9 @@ function ResponseList({ questionId, currentUser }) {
         }
     };
 
-    const handleEdit = (responseId, newContent) => {
-        axios.put(`/api/responses/${responseId}`, { content: newContent })
-            .then(() => {
-                refreshResponses();
-            })
-            .catch((error) => {
-                console.error('Error editing response:', error);
-            });
+    const handleEdit = (responseId) => {
+        const editableResponse = responses.find((response) => response.id === responseId);
+        onEditResponse(editableResponse);
     };
 
     const handleDelete = (responseId) => {
@@ -51,16 +46,6 @@ function ResponseList({ questionId, currentUser }) {
             });
     };
 
-    const refreshResponses = () => {
-        axios.get(`/api/responses/?question=${questionId}`)
-            .then((response) => {
-                setResponses(response.data);
-            })
-            .catch((error) => {
-                console.error('Error fetching responses:', error);
-            });
-    };
-
     return (
         <div>
             <h3>Responses</h3>
@@ -69,19 +54,10 @@ function ResponseList({ questionId, currentUser }) {
                     <li key={response.id}>
                         <p>{response.response}</p>
                         <p>Author: {response.userDetails.username}</p>
-                        {currentUser && currentUser.pk === response.user.pk && (
+                        {currentUser && currentUser.pk === response.user && (
                             <div>
-                                <button onClick={() => {
-                                    const newContent = prompt('Edit response:', response.content);
-                                    if (newContent !== null) {
-                                        handleEdit(response.id, newContent);
-                                    }
-                                }}>Edit</button>
-                                <button onClick={() => {
-                                    if (window.confirm('Are you sure you want to delete this response?')) {
-                                        handleDelete(response.id);
-                                    }
-                                }}>Delete</button>
+                                <button onClick={() => handleEdit(response.id)}>Edit</button>
+                                <button onClick={() => handleDelete(response.id)}>Delete</button>
                             </div>
                         )}
                     </li>

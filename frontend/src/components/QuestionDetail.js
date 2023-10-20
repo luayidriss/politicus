@@ -49,6 +49,16 @@ function QuestionDetail() {
             });
     };
 
+    const handleAddResponse = (newResponse) => {
+        // Handle adding a response
+        console.log('Response added:', newResponse);
+    };
+
+    const handleEditResponse = (responseToEdit) => {
+        // Handle editing a response
+        console.log('Editing response:', responseToEdit);
+    };
+
     if (!question) {
         return <p>Loading...</p>;
     }
@@ -71,8 +81,16 @@ function QuestionDetail() {
                     </div>
                 )}
 
-                <ResponseList questionId={questionId} />
-                <ResponseForm questionId={questionId} currentUser={currentUser} />
+                <ResponseList
+                    questionId={questionId}
+                    currentUser={currentUser}
+                    onEditResponse={handleEditResponse}
+                />
+                <ResponseForm
+                    questionId={questionId}
+                    currentUser={currentUser}
+                    onAddResponse={handleAddResponse}
+                />
             </div>
         </div>
     );

@@ -1,26 +1,33 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 function ResponseForm({ questionId, onAddResponse, currentUser, editableResponse, onCancelEdit, refreshResponses }) {
     const [responseText, setResponseText] = useState(editableResponse ? editableResponse.response : '');
     const [additionalResources, setAdditionalResources] = useState(
         editableResponse ? (editableResponse.additional_resources || '') : ''
     );
-
     const isEditing = !!editableResponse;
+    const history = useHistory();
+
+    const handleCancelEdit = () => {
+        setResponseText('');
+        setAdditionalResources('');
+        onCancelEdit(null);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             if (isEditing) {
-                await axios.put(`/api/responses/${editableResponse.id}`, {
+                await axios.put(`/api/responses/${editableResponse.id}/`, {
                     response: responseText,
                     additional_resources: additionalResources,
                 });
-                onCancelEdit();
-                refreshResponses(); // Refresh responses after editing
+                handleCancelEdit();
+                history.push(`/questions/${questionId}`);
             } else {
                 const questionDetails = await axios.get(`/api/questions/${questionId}`);
                 const question = questionDetails.data;
@@ -28,15 +35,14 @@ function ResponseForm({ questionId, onAddResponse, currentUser, editableResponse
                 const response = await axios.post(`/api/responses/question/${questionId}/`, {
                     response: responseText,
                     additional_resources: additionalResources,
-                    question: question,
+                    question: question.id,
                     user: currentUser.pk,
                 });
 
                 if (response.status === 201) {
-                    setResponseText('');
-                    setAdditionalResources('');
+                    handleCancelEdit();
                     onAddResponse(response.data);
-                    refreshResponses();
+                    history.push(`/questions/${questionId}`);
                 } else {
                     console.error('Failed to create response');
                 }
@@ -75,7 +81,7 @@ function ResponseForm({ questionId, onAddResponse, currentUser, editableResponse
                     {isEditing ? 'Save' : 'Submit'}
                 </Button>
                 {isEditing && (
-                    <Button variant="secondary" onClick={onCancelEdit}>
+                    <Button variant="secondary" onClick={handleCancelEdit}>
                         Cancel
                     </Button>
                 )}

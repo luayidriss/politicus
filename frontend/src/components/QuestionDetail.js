@@ -11,6 +11,7 @@ function QuestionDetail() {
     const history = useHistory();
     const [question, setQuestion] = useState(null);
     const { currentUser } = useAuth();
+    const [editableResponse, setEditableResponse] = useState(null);
 
     const fetchUserDetailsForQuestion = async (userId) => {
         try {
@@ -20,6 +21,19 @@ function QuestionDetail() {
             console.error('Error fetching user details for question author:', error);
             return {};
         }
+    }
+
+    const handleCancelEdit = () => {
+        setEditableResponse(null);
+        };
+
+    const handleAddResponse = (newResponse) => {
+        console.log('Response added:', newResponse);
+    };
+
+    const handleEditResponse = (responseToEdit) => {
+        console.log('Editing response:', responseToEdit);
+        setEditableResponse(responseToEdit);
     };
 
     useEffect(() => {
@@ -37,7 +51,7 @@ function QuestionDetail() {
 
     const navigateToEditQuestion = () => {
         history.push(`/questions/${questionId}/edit`);
-    };
+    }
 
     const handleDelete = () => {
         axios.delete(`/api/questions/${questionId}`)
@@ -47,51 +61,44 @@ function QuestionDetail() {
             .catch((error) => {
                 console.error('Error deleting question:', error);
             });
-    };
 
-    const handleAddResponse = (newResponse) => {
-        // Handle adding a response
-        console.log('Response added:', newResponse);
-    };
-
-    const handleEditResponse = (responseToEdit) => {
-        // Handle editing a response
-        console.log('Editing response:', responseToEdit);
-    };
-
-    if (!question) {
-        return <p>Loading...</p>;
     }
-
-    const isOwner = currentUser && currentUser.pk === question.user;
 
     return (
         <div>
-            <div>
-                <h2>{question.question}</h2>
-                <p>{question.description}</p>
-                <p>
-                    Author: <Link to={`/profile/${question.user}`}>{question.userDetails.username}</Link>
-                </p>
+            {question ? (
+                <div>
+                    <h2>{question.question}</h2>
+                    <p>{question.description}</p>
+                    <p>
+                        Author: <Link to={`/profile/${question.user}`}>{question.userDetails.username}</Link>
+                    </p>
 
-                {isOwner && (
-                    <div>
-                        <button onClick={navigateToEditQuestion}>Edit</button>
-                        <button onClick={handleDelete}>Delete</button>
-                    </div>
-                )}
+                    {currentUser && currentUser.pk === question.user && (
+                        <div>
+                            <button onClick={navigateToEditQuestion}>Edit</button>
+                            <button onClick={handleDelete}>Delete</button>
+                        </div>
+                    )}
 
-                <ResponseList
-                    questionId={questionId}
-                    currentUser={currentUser}
-                    onEditResponse={handleEditResponse}
-                />
-                <ResponseForm
-                    questionId={questionId}
-                    currentUser={currentUser}
-                    onAddResponse={handleAddResponse}
-                />
-            </div>
+                    <ResponseList
+                        questionId={questionId}
+                        currentUser={currentUser}
+                        onEditResponse={handleEditResponse}
+                    />
+                    {currentUser && (
+                        <ResponseForm
+                            questionId={questionId}
+                            currentUser={currentUser}
+                            onAddResponse={handleAddResponse}
+                            editableResponse={editableResponse}
+                            onCancelEdit={handleCancelEdit}
+                        />
+                    )}
+                </div>
+            ) : (
+                <p>Loading...</p>
+            )}
         </div>
     );
 }

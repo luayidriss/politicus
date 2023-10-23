@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 function ResponseList({ questionId, currentUser, onEditResponse, refreshResponses }) {
     const [responses, setResponses] = useState([]);
+    const history = useHistory();
 
     useEffect(() => {
         axios.get(`/api/responses/?question=${questionId}`)
@@ -39,7 +41,7 @@ function ResponseList({ questionId, currentUser, onEditResponse, refreshResponse
     const handleDelete = (responseId) => {
         axios.delete(`/api/responses/${responseId}`)
             .then(() => {
-                refreshResponses();
+                history.push(`/questions/${questionId}`);
             })
             .catch((error) => {
                 console.error('Error deleting response:', error);

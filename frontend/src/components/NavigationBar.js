@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -7,12 +7,22 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useAuth } from './AuthContext';
 
 const NavigationBar = () => {
-  const { loggedIn, currentUser } = useAuth();
+  const { loggedIn, currentUser, logout, handleTokenRefresh } = useAuth();
+  useEffect(() => {
+    if (loggedIn) {
+      handleTokenRefresh();
+    }
+  }, [loggedIn, handleTokenRefresh]);
 
   return (
     <Navbar bg="light" expand="lg">
       <Container>
         <Nav className="me-auto">
+        {loggedIn ? (
+            <Nav.Item>
+              <span className="nav-link">Welcome, {currentUser.first_name}!</span>
+            </Nav.Item>
+          ) : null}
           <Nav.Item>
             <Link to="/" className="nav-link">Home</Link>
           </Nav.Item>
@@ -25,7 +35,7 @@ const NavigationBar = () => {
                 <Link to={`/profile/${currentUser.pk}/`} className="nav-link">My Profile</Link>
               </NavDropdown.Item>
             </NavDropdown>
-          ) }
+          )}
         </Nav>
         <Nav className="ml-auto">
           {!loggedIn ? (
@@ -39,7 +49,7 @@ const NavigationBar = () => {
             </>
           ) : (
             <Nav.Item>
-              <Link to="/logout" className="nav-link">Sign Out</Link>
+              <Link to="/logout" className="nav-link" onClick={logout}>Sign Out</Link>
             </Nav.Item>
           )}
         </Nav>

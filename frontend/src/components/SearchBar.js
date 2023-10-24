@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/SearchBar.css';
 
 function SearchBar({ onSearch }) {
   const [keyword, setKeyword] = useState('');
@@ -8,14 +9,17 @@ function SearchBar({ onSearch }) {
   };
 
   return (
-    <div className="d-flex justify-content-center">
+    <div className="search-container">
       <input
         type="text"
+        className="search-input"
         placeholder="Search..."
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
       />
-      <button onClick={handleSearch}>Search</button>
+      <button className="search-button" onClick={handleSearch}>
+        Search
+      </button>
     </div>
   );
 }

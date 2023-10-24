@@ -44,6 +44,7 @@
     border: none;
     padding: 8px 16px;
     cursor: pointer;
+    border-radius: 5px;
   }
   
   .delete-button {
@@ -52,5 +53,6 @@
     border: none;
     padding: 8px 16px;
     cursor: pointer;
+    border-radius: 5px;
   }
   

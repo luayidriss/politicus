@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import '../styles/ResponseForm.css'
 
 function ResponseForm({ questionId, onAddResponse, currentUser, editableResponse, onCancelEdit, refreshResponses }) {
     const [responseText, setResponseText] = useState(editableResponse ? editableResponse.response : '');
@@ -53,39 +54,41 @@ function ResponseForm({ questionId, onAddResponse, currentUser, editableResponse
     };
 
     return (
-        <div>
-            <h3>{isEditing ? 'Edit Response' : 'Add a Response'}</h3>
-            <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="response">
-                    <Form.Control
-                        as="textarea"
-                        rows={3}
-                        value={responseText}
-                        onChange={(e) => setResponseText(e.target.value)}
-                        placeholder={`Write your ${isEditing ? 'edited response' : 'response'} here...`}
-                        required
-                    />
-                </Form.Group>
+        <div className="comment-section">
+            <div className="response-form">
+                <h3>{isEditing ? 'Edit Response' : 'Add a Response'}</h3>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group controlId="response">
+                        <Form.Control
+                            as="textarea"
+                            rows={3}
+                            value={responseText}
+                            onChange={(e) => setResponseText(e.target.value)}
+                            placeholder={`Write your ${isEditing ? 'edited response' : 'response'} here...`}
+                            required
+                        />
+                    </Form.Group>
 
-                <Form.Group controlId="additionalResources">
-                    <Form.Label>Additional Resources (Optional)</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={additionalResources}
-                        onChange={(e) => setAdditionalResources(e.target.value)}
-                        placeholder="Enter additional resources (e.g., links)"
-                    />
-                </Form.Group>
+                    <Form.Group controlId="additionalResources">
+                        <Form.Label>Additional Resources (Optional)</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={additionalResources}
+                            onChange={(e) => setAdditionalResources(e.target.value)}
+                            placeholder="Enter additional resources (e.g., links)"
+                        />
+                    </Form.Group>
 
-                <Button variant="primary" type="submit">
-                    {isEditing ? 'Save' : 'Submit'}
-                </Button>
-                {isEditing && (
-                    <Button variant="secondary" onClick={handleCancelEdit}>
-                        Cancel
+                    <Button variant="primary" type="submit">
+                        {isEditing ? 'Save' : 'Submit'}
                     </Button>
-                )}
-            </Form>
+                    {isEditing && (
+                        <Button variant="secondary" onClick={handleCancelEdit}>
+                            Cancel
+                        </Button>
+                    )}
+                </Form>
+            </div>
         </div>
     );
 }

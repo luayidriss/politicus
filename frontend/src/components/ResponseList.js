@@ -51,24 +51,30 @@ function ResponseList({ questionId, currentUser, onEditResponse, refreshResponse
 
     return (
         <div className="response-list">
-          <h3>Responses</h3>
-          {responses.map((response) => (
-            <div className="response" key={response.id}>
-              <h4>Response</h4>
-              <p>{response.response}</p>
-              <div className="author-info">
-                Author: <Link to={`/profile/${response.user}`}>{response.userDetails.username}</Link>
-              </div>
-              {currentUser && currentUser.pk === response.user && (
-                <div className="buttons">
-                  <button onClick={() => handleEdit(response.id)}>Edit</button>
-                  <button className="delete-button" onClick={() => handleDelete(response.id)}>Delete</button>
+            <h3>Responses</h3>
+            {responses.map((response) => (
+                <div className="response" key={response.id}>
+                    <p>{response.response}</p>
+                    {response.additional_resources && (
+                        <p>Additional Resources:&nbsp;
+                            <a href={response.additional_resources} target="_blank" rel="noopener noreferrer">
+                                {response.additional_resources}
+                            </a>
+                        </p>
+                    )}
+                    <div className="author-info">
+                        Author: <Link to={`/profile/${response.user}`}>{response.userDetails.username}</Link>
+                    </div>
+                    {currentUser && currentUser.pk === response.user && (
+                        <div className="buttons">
+                            <button onClick={() => handleEdit(response.id)}>Edit</button>
+                            <button className="delete-button" onClick={() => handleDelete(response.id)}>Delete</button>
+                        </div>
+                    )}
                 </div>
-              )}
-            </div>
-          ))}
+            ))}
         </div>
-      );
-    }
+    );
+}
 
 export default ResponseList;

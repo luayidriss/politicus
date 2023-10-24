@@ -1,0 +1,60 @@
+.comment-section {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.response-form h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.response-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.response-form .form-group {
+    margin-bottom: 15px;
+}
+
+.response-form label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.response-form textarea {
+    resize: none;
+    font-size: 14px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.response-form input[type="text"] {
+    font-size: 14px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.response-form .btn-primary {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.response-form .btn-secondary {
+    background-color: #ccc;
+    color: #333;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 0px;
+}

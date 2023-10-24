@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../styles/FollowButton.css';
 
 function FollowButton({ userId, isFollowing, onToggleFollow }) {
   const [loading, setLoading] = useState(false);
-  console.log(isFollowing)
 
   const toggleFollow = async () => {
     if (loading) return;
@@ -26,9 +26,15 @@ function FollowButton({ userId, isFollowing, onToggleFollow }) {
   }
 
   return (
-    <button onClick={toggleFollow} disabled={loading}>
-      {isFollowing ? 'Unfollow' : 'Follow'}
-    </button>
+    <div className="button-container">
+      <button
+        className="follow-button"
+        onClick={toggleFollow}
+        disabled={loading}
+      >
+        {isFollowing ? 'Unfollow' : 'Follow'}
+      </button>
+    </div>
   );
 }
 

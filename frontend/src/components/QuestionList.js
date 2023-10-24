@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import axios from 'axios';
 import { Card, Container } from 'react-bootstrap';
+import '../styles/Lists.css';
 
 function QuestionList({ data }) {
   const [questions, setQuestions] = useState([]);
@@ -65,8 +66,7 @@ function QuestionList({ data }) {
   }, [data]);
 
   return (
-    <Container>
-      <h2>Questions</h2>
+    <Container className='user-data'>
       {data.length === 0 ? (
         <p>No questions found</p>
       ) : (

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Card, Container } from 'react-bootstrap';
+import '../styles/Lists.css';
 
 function UserQuestions({ userId }) {
   const [userQuestions, setUserQuestions] = useState([]);
@@ -17,8 +18,7 @@ function UserQuestions({ userId }) {
   }, [userId]);
 
   return (
-    <Container>
-      <h2>User Questions</h2>
+    <Container className='user-data'>
       {userQuestions.length === 0 ? (
         <p>No questions found for this user</p>
       ) : (

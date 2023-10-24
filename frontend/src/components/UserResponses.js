@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Card, Container } from 'react-bootstrap';
+import '../styles/Lists.css';
 
 function UserResponses({ userId }) {
   const [userResponses, setUserResponses] = useState([]);
@@ -18,8 +19,7 @@ function UserResponses({ userId }) {
 
 
   return (
-    <Container>
-      <h2>User Responses</h2>
+    <Container className='user-data'>
       {userResponses.length === 0 ? (
         <p>No responses found for this user</p>
       ) : (

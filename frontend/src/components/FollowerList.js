@@ -43,7 +43,7 @@ const FollowerList = () => {
   return (
     <Card>
       <Card.Body>
-        <Card.Title>Followers</Card.Title>
+        <Card.Title>Thinkers</Card.Title>
         <ListGroup as="ul">
           {users.map((user) => (
             <ListGroup.Item as="li" key={user.id}>

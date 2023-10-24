@@ -7,7 +7,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useAuth } from './AuthContext';
 
 const NavigationBar = () => {
-  const { loggedIn, currentUser, logout, handleTokenRefresh } = useAuth();
+  const { loggedIn, currentUser, handleTokenRefresh } = useAuth();
   useEffect(() => {
     if (loggedIn) {
       handleTokenRefresh();
@@ -49,7 +49,7 @@ const NavigationBar = () => {
             </>
           ) : (
             <Nav.Item>
-              <Link to="/logout" className="nav-link" onClick={logout}>Sign Out</Link>
+              <Link to="/logout" className="nav-link">Sign Out</Link>
             </Nav.Item>
           )}
         </Nav>

@@ -1,0 +1,50 @@
+.response-list {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .response {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .response p {
+    margin: 0;
+    padding: 10px;
+  }
+  
+  .response .author-info {
+    font-style: italic;
+    margin-top: 5px;
+  }
+  
+  .response .buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .response .buttons button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  
+  .response .buttons .delete-button {
+    background-color: #e74c3c;
+  }
+  
+  .response h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  

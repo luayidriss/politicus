@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Form, Button, Row, Col, Image } from 'react-bootstrap';
-import { useAuth } from './AuthContext'
+import { useAuth } from './AuthContext';
+import '../styles/EditProfile.css';
 
 const EditProfile = () => {
   const { currentUser } = useAuth();
@@ -77,75 +78,81 @@ const EditProfile = () => {
   };
 
   return (
-    <Container className="mt-4">
+    <Container className="edit-profile-container mt-4">
       <h2>Edit Profile</h2>
       <Form>
-          <Form.Group>
-            <Form.Label>Username</Form.Label>
-            <Form.Control
-              type="text"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-            />
-            <Button variant="primary" onClick={handleUpdateUsername}>
-              Update Username
-            </Button>
-          </Form.Group>
         <Form.Group>
-          <Form.Label>Country</Form.Label>
+          <Form.Label className="form-label">Username</Form.Label>
+          <Form.Control
+            type="text"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            className="form-control"
+          />
+          <Button variant="primary" onClick={handleUpdateUsername} className="update-button">
+            Update Username
+          </Button>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label className="form-label">Country</Form.Label>
           <Form.Control
             type="text"
             name="country"
             value={formData.country}
             onChange={handleChange}
+            className="form-control"
           />
         </Form.Group>
         <Form.Group>
-          <Form.Label>Birthday</Form.Label>
+          <Form.Label className="form-label">Birthday</Form.Label>
           <Form.Control
             type="date"
             name="birth_date"
             value={formData.birth_date}
             onChange={handleChange}
+            className="form-control"
           />
         </Form.Group>
         <Form.Group>
-          <Form.Label>Bio</Form.Label>
+          <Form.Label className="form-label">Bio</Form.Label>
           <Form.Control
             as="textarea"
             rows={4}
             name="bio"
             value={formData.bio}
             onChange={handleChange}
+            className="form-control"
           />
         </Form.Group>
         <Row>
           <Col>
             <Form.Group>
-              <Form.Label>First Name</Form.Label>
+              <Form.Label className="form-label">First Name</Form.Label>
               <Form.Control
                 type="text"
                 name="first_name"
                 value={formData.first_name}
                 onChange={handleChange}
+                className="form-control"
               />
             </Form.Group>
           </Col>
           <Col>
             <Form.Group>
-              <Form.Label>Last Name</Form.Label>
+              <Form.Label className="form-label">Last Name</Form.Label>
               <Form.Control
                 type="text"
                 name="last_name"
                 value={formData.last_name}
                 onChange={handleChange}
+                className="form-control"
               />
             </Form.Group>
           </Col>
         </Row>
         <Form.Group>
-          <Form.Label>Profile Picture</Form.Label>
+          <Form.Label className="form-label">Profile Picture</Form.Label>
           <Form.File
             id="custom-file"
             label="Choose a profile picture"
@@ -157,33 +164,35 @@ const EditProfile = () => {
           <Image
             src={profileImage}
             alt="User Profile"
-            className="img-fluid rounded-circle mb-3"
+            className="img-fluid rounded-circle mb-3 user-image"
           />
         )}
-        <Button variant="primary" onClick={handleUpdateProfile}>
+        <Button variant="primary" onClick={handleUpdateProfile} className="update-button">
           Update Profile
         </Button>
-        <Form>
-          <Form.Group>
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Confirm Password</Form.Label>
-            <Form.Control
-              type="password"
-              name="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </Form.Group>
-        </Form>
-        <Button variant="primary" onClick={handleUpdatePassword}>
+      </Form>
+      <Form className="password-form">
+        <Form.Group>
+          <Form.Label className="password-label">Password</Form.Label>
+          <Form.Control
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="password-control form-control"
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label className="password-label">Confirm Password</Form.Label>
+          <Form.Control
+            type="password"
+            name="confirmPassword"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="password-control form-control"
+          />
+        </Form.Group>
+        <Button variant="primary" onClick={handleUpdatePassword} className="update-button">
           Update Password
         </Button>
       </Form>

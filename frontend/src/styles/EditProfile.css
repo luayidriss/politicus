@@ -1,0 +1,49 @@
+.edit-profile-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+  }
+  
+  .form-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-control {
+    margin-bottom: 15px;
+  }
+  
+  .update-button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+
+  .user-image {
+    max-width: 150px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+  }
+  
+  .password-form {
+    margin-top: 20px;
+  }
+  
+  .password-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .update-password-button {
+    background-color: #e74c3c;
+  }
+
+  .password-control {
+    margin-bottom: 10px;
+  }
+  

@@ -112,6 +112,7 @@ const UserProfile = ({ userId }) => {
           <Card.Title>Username: {user.username}</Card.Title>
           <Card.Text>Followers: {followers.length}</Card.Text>
           <Card.Text>Following: {following.length}</Card.Text>
+          <Card.Text>{user.bio}</Card.Text>
           {!isCurrentUser && currentUser && (
             <Card.Text>
               <FollowButton userId={userId} isFollowing={isFollowing} onToggleFollow={handleToggleFollow} />

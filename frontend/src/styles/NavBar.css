@@ -1,0 +1,23 @@
+.nav-dropdown-dark .dropdown-menu {
+    background-color: #343a40;
+  }
+  
+  .nav-dropdown-dark .dropdown-item {
+    color: #ffffff;
+  }
+  
+  .nav-dropdown-dark .dropdown-item:hover {
+    background-color: #007bff;
+    color: #ffffff;
+  }
+
+  .nav-dropdown-dark .dropdown-toggle::after {
+    border: .3em solid transparent;
+    border-top: 0;
+    border-color: transparent transparent #ffffff;
+  }
+  
+  .nav-dropdown-dark .dropdown-toggle {
+    color: #ffffff;
+  }
+  

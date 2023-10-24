@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useAuth } from './AuthContext';
+import '../styles/NavBar.css'
 
 const NavigationBar = () => {
   const { loggedIn, currentUser, handleTokenRefresh } = useAuth();
@@ -27,7 +28,7 @@ const NavigationBar = () => {
             <Link to="/" className="nav-link">Home</Link>
           </Nav.Item>
           {loggedIn && (
-            <NavDropdown title="Profile" id="basic-nav-dropdown">
+            <NavDropdown title="Profile" id="basic-nav-dropdown" className="nav-dropdown-dark">
               <NavDropdown.Item>
                 <Link to="/add-question" className="nav-link">Add Questions</Link>
               </NavDropdown.Item>

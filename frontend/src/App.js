@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
 import Home from './pages/Home';
-import Question from './pages/Question';
 import Profile from './pages/Profile';
 import Registration from './pages/Registration';
 import Login from './pages/Login';
@@ -32,7 +31,6 @@ function App() {
                         <Route path="/profile/:userId" component={Profile} />
                         <Route path="/user/edit" component={EditProfile} />
                         <Route path='/add-question' component={QuestionForm} />
-                        <Route path="/questions" component={Question} />
                         <Route path="/register" component={Registration} />
                         <Route path="/login" component={Login} />
                         <Route path="/logout" component={Logout} />

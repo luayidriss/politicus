@@ -1,0 +1,16 @@
+/* auth.css */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    margin: 20px;
+  }
+  
+  .auth-card {
+    border: 1px solid black;
+    width: 25rem;
+    text-align: center;
+    padding: 20px;
+  }
+  

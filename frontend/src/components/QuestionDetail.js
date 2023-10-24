@@ -6,6 +6,7 @@ import ResponseForm from './ResponseForm';
 import { useAuth } from './AuthContext';
 import { Link } from 'react-router-dom';
 import '../styles/QuestionDetail.css';
+import { Container } from 'react-bootstrap';
 
 function QuestionDetail() {
     const { questionId } = useParams();
@@ -65,43 +66,41 @@ function QuestionDetail() {
     }
 
     return (
-        <div className='page-container'>
-            <div className="question-detail-container">
-            {question ? (
-                <div>
-                    <h1 className="question-title">{question.question}</h1>
-                    <p className="question-description">{question.description}</p>
-                    <div className="author-info">
-                        Author: <Link to={`/profile/${question.user}`}>{question.userDetails.username}</Link>
+        <Container className="question-detail-container mt-4">
+        {question ? (
+            <div>
+                <h1 className="question-title">{question.question}</h1>
+                <p className="question-description">{question.description}</p>
+                <div className="author-info">
+                    Author: <Link to={`/profile/${question.user}`}>{question.userDetails.username}</Link>
+                </div>
+
+                {currentUser && currentUser.pk === question.user && (
+                    <div className="button-container">
+                        <button className="edit-button" onClick={navigateToEditQuestion}>Edit</button>
+                        <button className="delete-button" onClick={handleDelete}>Delete</button>
                     </div>
+                )}
 
-                    {currentUser && currentUser.pk === question.user && (
-                        <div className="button-container">
-                            <button className="edit-button" onClick={navigateToEditQuestion}>Edit</button>
-                            <button className="delete-button" onClick={handleDelete}>Delete</button>
-                        </div>
-                    )}
-
-                    <ResponseList
+                <ResponseList
+                    questionId={questionId}
+                    currentUser={currentUser}
+                    onEditResponse={handleEditResponse}
+                />
+                {currentUser && (
+                    <ResponseForm
                         questionId={questionId}
                         currentUser={currentUser}
-                        onEditResponse={handleEditResponse}
+                        onAddResponse={handleAddResponse}
+                        editableResponse={editableResponse}
+                        onCancelEdit={handleCancelEdit}
                     />
-                    {currentUser && (
-                        <ResponseForm
-                            questionId={questionId}
-                            currentUser={currentUser}
-                            onAddResponse={handleAddResponse}
-                            editableResponse={editableResponse}
-                            onCancelEdit={handleCancelEdit}
-                        />
-                    )}
-                </div>
-            ) : (
-                <p>Loading...</p>
-            )}
-        </div>
-        </div>
+                )}
+            </div>
+        ) : (
+            <p>Loading...</p>
+        )}        
+        </Container>
     );
 }
 

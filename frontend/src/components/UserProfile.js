@@ -6,6 +6,7 @@ import UserQuestions from './UserQuestions'
 import UserResponses from './UserResponses'
 import axios from 'axios';
 import { useAuth } from './AuthContext';
+import '../styles/UserProfile.css'
 
 const UserProfile = ({ userId }) => {
   const { currentUser } = useAuth();
@@ -105,8 +106,7 @@ const UserProfile = ({ userId }) => {
   };
 
   return (
-    <Container className="mt-4">
-      <h2 className="mb-4">User Profile</h2>
+    <Container className=" user-profile mt-4">
       <Card>
         <Card.Body>
           <Card.Title>Username: {user.username}</Card.Title>
@@ -130,7 +130,7 @@ const UserProfile = ({ userId }) => {
         </Card.Body>
       </Card>
 
-      <Tabs defaultActiveKey="questions" id="profile-tabs">
+      <Tabs defaultActiveKey="questions" id="profile-tabs" className="custom-tabs">
         <Tab eventKey="questions" title={`Questions (${questionCount})`}>
           <UserQuestions userId={userId} />
         </Tab>

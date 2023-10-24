@@ -80,7 +80,6 @@ const EditProfile = () => {
     <Container className="mt-4">
       <h2>Edit Profile</h2>
       <Form>
-        <Row>
           <Form.Group>
             <Form.Label>Username</Form.Label>
             <Form.Control
@@ -93,7 +92,6 @@ const EditProfile = () => {
               Update Username
             </Button>
           </Form.Group>
-        </Row>
         <Form.Group>
           <Form.Label>Country</Form.Label>
           <Form.Control

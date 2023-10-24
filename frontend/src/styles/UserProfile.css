@@ -1,0 +1,33 @@
+.user-profile {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .user-card {
+    margin-bottom: 20px;
+  }
+  
+  .user-image {
+    max-width: 150px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+  }
+  
+  .edit-profile-button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  
+  .custom-tabs .nav-link {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 5px;
+    padding: 5px 10px;
+  }
+  

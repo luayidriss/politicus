@@ -1,0 +1,54 @@
+.page-container{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.question-detail-container {
+    width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .question-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .question-description {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .author-info {
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+  
+  .button-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .edit-button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  
+  .delete-button {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  

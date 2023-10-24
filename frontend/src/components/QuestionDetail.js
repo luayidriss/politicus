@@ -5,6 +5,7 @@ import ResponseList from './ResponseList';
 import ResponseForm from './ResponseForm';
 import { useAuth } from './AuthContext';
 import { Link } from 'react-router-dom';
+import '../styles/QuestionDetail.css';
 
 function QuestionDetail() {
     const { questionId } = useParams();
@@ -25,7 +26,7 @@ function QuestionDetail() {
 
     const handleCancelEdit = () => {
         setEditableResponse(null);
-        };
+    };
 
     const handleAddResponse = (newResponse) => {
         console.log('Response added:', newResponse);
@@ -61,23 +62,23 @@ function QuestionDetail() {
             .catch((error) => {
                 console.error('Error deleting question:', error);
             });
-
     }
 
     return (
-        <div>
+        <div className='page-container'>
+            <div className="question-detail-container">
             {question ? (
                 <div>
-                    <h2>{question.question}</h2>
-                    <p>{question.description}</p>
-                    <p>
+                    <h1 className="question-title">{question.question}</h1>
+                    <p className="question-description">{question.description}</p>
+                    <div className="author-info">
                         Author: <Link to={`/profile/${question.user}`}>{question.userDetails.username}</Link>
-                    </p>
+                    </div>
 
                     {currentUser && currentUser.pk === question.user && (
-                        <div>
-                            <button onClick={navigateToEditQuestion}>Edit</button>
-                            <button onClick={handleDelete}>Delete</button>
+                        <div className="button-container">
+                            <button className="edit-button" onClick={navigateToEditQuestion}>Edit</button>
+                            <button className="delete-button" onClick={handleDelete}>Delete</button>
                         </div>
                     )}
 
@@ -99,6 +100,7 @@ function QuestionDetail() {
             ) : (
                 <p>Loading...</p>
             )}
+        </div>
         </div>
     );
 }

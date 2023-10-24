@@ -12,12 +12,13 @@ import EditProfile from './components/EditProfile';
 import QuestionForm from './components/QuestionForm';
 import './api/axiosDefaults';
 import { AuthProvider } from './components/AuthContext';
+import './App.css'
 
 function App() {
     return (
         <Router>
             <AuthProvider>
-                <div>
+                <div className='App'>
                     <NavigationBar />
                     <Switch>
                         <Route exact path="/" component={Home} />

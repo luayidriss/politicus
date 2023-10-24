@@ -6,7 +6,7 @@ const Registration = () => {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h2>Registration Page</h2>
+        <h2>Registration Form</h2>
         <RegistrationForm />
       </div>
     </div>

@@ -15,7 +15,7 @@ const NavigationBar = () => {
   }, [loggedIn, handleTokenRefresh]);
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
         <Nav className="me-auto">
         {loggedIn ? (

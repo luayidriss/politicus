@@ -80,7 +80,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # "allauth.account.middleware.AccountMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 
@@ -124,16 +124,16 @@ JWT_AUTH_SAMESITE = 'None'
 # CSRF_COOKIE_SAMESITE = 'Strict'
 
 CSRF_TRUSTED_ORIGINS=[
-    'https://8000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io',
-    'https://3000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io'
+    'https://8000-luayidriss-politicus-t67mgwxasx1.ws-eu105.gitpod.io',
+    'https://3000-luayidriss-politicus-t67mgwxasx1.ws-eu105.gitpod.io'
     ]
 
 # CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://3000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io",
-    "https://8000-luayidriss-politicus-awte4re8lb5.ws-eu105.gitpod.io"
+    'https://8000-luayidriss-politicus-t67mgwxasx1.ws-eu105.gitpod.io',
+    'https://3000-luayidriss-politicus-t67mgwxasx1.ws-eu105.gitpod.io'
 ]
 
 CORS_ALLOW_CREDENTIALS = True

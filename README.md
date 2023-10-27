@@ -129,12 +129,24 @@ Politicus is an information-sharing platform where users can ask questions about
 | country    | CharField with a maximum length of 100, nullable |
 | Custom manager `CustomUserManager` to create users and superusers |
 
+
+## Testing
+Please refer to the [TESTING.md](TESTING.md) file for all test-related documentation.
+
+
+## Deployment
+
+- The app was deployed to [Heroku](https://heroku.com/).
+
+- **The app can be reached by the [link](https://dr-meetings.onrender.com/).**
+
+
 ## Credits
 
 - GitHub for giving me the platform to design my project.
 - Django for the framework.
 - Django Rest Framework for the API functionality.
-- Postgresql for providing a free database.
+- Render for providing a free database.
 
 ## Acknowledgements
 

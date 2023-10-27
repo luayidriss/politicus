@@ -15,6 +15,8 @@ const NavigationBar = () => {
     }
   }, [loggedIn, handleTokenRefresh]);
 
+  console.log(currentUser)
+
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>

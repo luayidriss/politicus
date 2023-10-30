@@ -17,11 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from .views import logout_route
-from django.views.generic import TemplateView
 from dj_rest_auth.views import LoginView
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='index.html')),
     path('api/dj-rest-auth/logout/', logout_route),
     path('api/dj-rest-auth/', include('dj_rest_auth.urls')),
     path(
@@ -34,5 +32,3 @@ urlpatterns = [
     path('api/followers/', include('followers.urls')),
     path('api/accounts/', include('allauth.urls')),
 ]
-
-handler404 = TemplateView.as_view(template_name='index.html')

@@ -14,7 +14,7 @@ function LoginForm() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('dj-rest-auth/login/', { username, password });
+      const response = await axios.post('api/dj-rest-auth/login/', { username, password });
       login();
       console.log('Login successful:', response.data);
       history.push('/');

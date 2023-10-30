@@ -16,7 +16,7 @@ function RegistrationForm() {
 
   const handleRegister = async () => {
     try {
-      await axios.post('dj-rest-auth/registration/', {
+      await axios.post('api/dj-rest-auth/registration/', {
         username,
         email,
         password1,

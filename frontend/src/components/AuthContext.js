@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
 
   const handleTokenRefresh = async () => {
     try {
-      await axios.post("/dj-rest-auth/token/refresh/");
+      await axios.post("api/dj-rest-auth/token/refresh/");
     } catch (err) {
       setLoggedIn(false);
       history.push("/signin");
@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const userData = await axios.get("dj-rest-auth/user/");
+        const userData = await axios.get("api/dj-rest-auth/user/");
         setCurrentUser(userData.data);
         setLoggedIn(true);
       } catch (error) {
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async () => {
     try {
-      const userData = await axios.get("dj-rest-auth/user/");
+      const userData = await axios.get("api/dj-rest-auth/user/");
       setCurrentUser(userData.data);
       setLoggedIn(true);
     } catch (error) {

@@ -53,23 +53,23 @@ Politicus is an information-sharing platform where users can ask questions about
 
 ### Authentication
 
-![Main Page]()
-![Main Page]()
-![Main Page]()
+![Main Page](https://github.com/luayidriss/politicus/blob/f1667366e365a64df98057baf5b72202776421e2/media/registarion.png)
+![Main Page](https://github.com/luayidriss/politicus/blob/f1667366e365a64df98057baf5b72202776421e2/media/login.png)
+![Main Page](https://github.com/luayidriss/politicus/blob/f1667366e365a64df98057baf5b72202776421e2/media/signout.png)
 
 
 - **Sign-In, Sign-Out, and Registration**: Politicus provides a seamless authentication system that allows users to sign in, sign out, and register new accounts.
 
 ### Navigation & User Experience
 
-![Main Page]()
+![Main Page](https://github.com/luayidriss/politicus/blob/667ec7530df21440ad50dbb763cd8ce2672f7ce9/media/navbar.png)
 
 - **User-Friendly Navigation**: A consistent and user-friendly navigation experience is offered with a top navigation bar on every page for easy access.
 - **Responsive Routing**: Smooth page transitions and routing ensure that content loads seamlessly without page refresh, enhancing the overall user experience.
 
 ### Information Sharing
 
-![Main Page]()
+![Main Page](https://github.com/luayidriss/politicus/blob/667ec7530df21440ad50dbb763cd8ce2672f7ce9/media/add_question.png)
 
 ![Main Page](https://github.com/luayidriss/politicus/blob/7c3d3dbcb044bd66d8639f0663dd2b7046150cb3/media/question-detail.png)
 
@@ -88,9 +88,7 @@ Politicus is an information-sharing platform where users can ask questions about
 
 ### Interaction & Engagement
 
-![Main Page]()
-![Main Page]()
-
+![Main Page](https://github.com/luayidriss/politicus/blob/667ec7530df21440ad50dbb763cd8ce2672f7ce9/media/response.png)
 
 - **Add Responses**: Users can engage with questions by posting responses to share their thoughts and insights.
 - **Response Management**: Response creators can edit or delete their responses, giving them control over their contributions.
@@ -100,7 +98,7 @@ Politicus is an information-sharing platform where users can ask questions about
 
 ![Main Page](https://github.com/luayidriss/politicus/blob/7c3d3dbcb044bd66d8639f0663dd2b7046150cb3/media/profile.png)
 ![Main Page](https://github.com/luayidriss/politicus/blob/7c3d3dbcb044bd66d8639f0663dd2b7046150cb3/media/user-questions-responses.png)
-![Main Page]()
+![Main Page](https://github.com/luayidriss/politicus/blob/667ec7530df21440ad50dbb763cd8ce2672f7ce9/media/edit_profile.png)
 
 - **Explore User Profiles**: Users can visit the profiles of other users to learn more about their contributions and interests.
 - **User Stats**: Detailed statistics on user profiles include bios, the number of questions, responses, followers, and users followed.

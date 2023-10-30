@@ -45,7 +45,6 @@ const EditProfile = () => {
   const handleUpdateUsername = () => {
     axios.put(`/api/profiles/${currentUser.pk}/`, { username: formData.username })
       .then((response) => {
-        console.log('Username updated successfully:', response.data);
       })
       .catch((error) => {
         console.error('Error updating username:', error);

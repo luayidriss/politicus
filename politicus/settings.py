@@ -137,7 +137,8 @@ CSRF_TRUSTED_ORIGINS=[
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     'https://8000-luayidriss-politicus-t67mgwxasx1.ws-eu105.gitpod.io',
-    'https://3000-luayidriss-politicus-t67mgwxasx1.ws-eu105.gitpod.io'
+    'https://3000-luayidriss-politicus-t67mgwxasx1.ws-eu105.gitpod.io',
+    'https://luay-politicus-9f3ab0dca991.herokuapp.com'
 ]
 
 CORS_ALLOW_CREDENTIALS = True

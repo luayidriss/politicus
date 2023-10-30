@@ -40,7 +40,9 @@ const EditProfile = () => {
 
   const handleProfileImageChange = (e) => {
     const file = e.target.files[0];
+    console.log(file)
     setProfileImage(URL.createObjectURL(file));
+    console.log(profileImage)
   };
 
   const handleUpdateUsername = () => {
@@ -68,8 +70,23 @@ const EditProfile = () => {
   };
 
   const handleUpdateProfile = () => {
-    axios.patch(`/api/profiles/${currentUser.pk}/`, formData)
+    const updatedFormData = new FormData();
+    updatedFormData.append('username', formData.username);
+    updatedFormData.append('country', formData.country);
+    updatedFormData.append('birth_date', formData.birth_date);
+    updatedFormData.append('bio', formData.bio);
+    updatedFormData.append('first_name', formData.first_name);
+    updatedFormData.append('last_name', formData.last_name);
+
+    console.log(profileImage)
+
+    if (profileImage) {
+      updatedFormData.append('profile_image', profileImage);
+    }
+
+    axios.patch(`/api/profiles/${currentUser.pk}/`, updatedFormData)
       .then((response) => {
+        console.log(profileImage)
         console.log('Profile data updated successfully:', response.data);
       })
       .catch((error) => {

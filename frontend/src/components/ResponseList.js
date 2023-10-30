@@ -10,7 +10,7 @@ function ResponseList({ questionId, currentUser, onEditResponse, refreshResponse
     useEffect(() => {
         axios.get(`/api/responses/?question=${questionId}`)
             .then(async (response) => {
-                const responseList = response.data;
+                const responseList = response.data.results;
                 const updatedResponses = await Promise.all(
                     responseList.map(async (response) => {
                         const userDetails = await fetchUserDetailsForResponse(response.user);

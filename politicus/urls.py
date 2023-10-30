@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from .views import logout_route
- from django.views.generic import TemplateView
+from django.views.generic import TemplateView
 from dj_rest_auth.views import LoginView
 
 urlpatterns = [

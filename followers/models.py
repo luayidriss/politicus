@@ -10,7 +10,7 @@ class UserFollow(models.Model):
     
 
     class Meta:
-        unique_together = ['followers','following']
+        unique_together = ['follower','following']
 
 
     def __str__(self):

@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Container, Card, Tabs, Tab, Button } from 'react-bootstrap';
 import FollowButton from './FollowButton';
-import UserQuestions from './UserQuestions'
-import UserResponses from './UserResponses'
+import UserQuestions from './UserQuestions';
+import UserResponses from './UserResponses';
 import axios from 'axios';
 import { useAuth } from './AuthContext';
-import '../styles/UserProfile.css'
+import '../styles/UserProfile.css';
 
 const UserProfile = ({ userId }) => {
   const { currentUser } = useAuth();
-  const [user, setUser] = useState({});
-  const [profileImage, setProfileImage] = useState(null);
+  const [userData, setUserData] = useState({ username: '', profile_picture: '' });
   const [questionCount, setQuestionCount] = useState(0);
   const [responseCount, setResponseCount] = useState(0);
   const [followers, setFollowers] = useState([]);
@@ -20,29 +19,29 @@ const UserProfile = ({ userId }) => {
   const isCurrentUser = currentUser && currentUser.pk === parseInt(userId, 10);
   const history = useHistory();
 
-  const fetchUserQuestions = () => {
+  const fetchUserQuestions = useCallback(() => {
     setTimeout(() => {
       axios.get(`/api/questions/user/${userId}/`)
         .then((response) => {
-          setQuestionCount(response.data.length);
+          setQuestionCount(response.data.results.length);
         })
         .catch((error) => {
           console.error('Error fetching user questions:', error);
         });
     }, 500);
-  };
+  }, [userId]);
 
-  const fetchUserResponses = () => {
+  const fetchUserResponses = useCallback(() => {
     setTimeout(() => {
       axios.get(`/api/responses/user/${userId}/`)
         .then((response) => {
-          setResponseCount(response.data.length);
+          setResponseCount(response.data.results.length);
         })
         .catch((error) => {
           console.error('Error fetching user responses:', error);
         });
-    }, 1000);
-  };
+    }, [userId]);
+  }, [userId]);
 
   const navigateToEditProfile = () => {
     history.push('/user/edit/');
@@ -51,13 +50,14 @@ const UserProfile = ({ userId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userData = await axios.get(`/api/profiles/${userId}/`);
-        setUser(userData.data);
-        setProfileImage(userData.data.profile_picture);
+        const userDataResponse = await axios.get(`/api/profiles/${userId}/`);
+        const userData = userDataResponse.data;
+        setUserData(userData);
+
         setTimeout(() => {
           axios.get(`/api/followers/followers/${userId}/`)
             .then((followersData) => {
-              setFollowers(followersData.data);
+              setFollowers(followersData.data.results);
             })
             .catch((error) => {
               console.error('Error fetching followers:', error);
@@ -67,7 +67,7 @@ const UserProfile = ({ userId }) => {
         setTimeout(() => {
           axios.get(`/api/followers/following/${userId}/`)
             .then((followingData) => {
-              setFollowing(followingData.data);
+              setFollowing(followingData.data.results);
             })
             .catch((error) => {
               console.error('Error fetching following:', error);
@@ -78,7 +78,7 @@ const UserProfile = ({ userId }) => {
           setTimeout(() => {
             axios.get(`/api/followers/followers/${userId}/`)
               .then((followersData) => {
-                const currentUserFollows = followersData.data.some(follower => {
+                const currentUserFollows = followersData.data.results.some(follower => {
                   return follower.follower === currentUser.pk;
                 });
                 setIsFollowing(currentUserFollows);
@@ -99,7 +99,7 @@ const UserProfile = ({ userId }) => {
     };
 
     fetchData();
-  }, [userId, currentUser, isCurrentUser]);
+  }, [userId, currentUser, isCurrentUser, fetchUserQuestions, fetchUserResponses]);
 
   const handleToggleFollow = (followStatus) => {
     setIsFollowing(followStatus);
@@ -109,18 +109,18 @@ const UserProfile = ({ userId }) => {
     <Container className=" user-profile mt-4">
       <Card>
         <Card.Body>
-          <Card.Title>Username: {user.username}</Card.Title>
+          <Card.Title>Username: {userData.username}</Card.Title>
           <Card.Text>Followers: {followers.length}</Card.Text>
           <Card.Text>Following: {following.length}</Card.Text>
-          <Card.Text>{user.bio}</Card.Text>
+          <Card.Text>{userData.bio}</Card.Text>
           {!isCurrentUser && currentUser && (
             <Card.Text>
               <FollowButton userId={userId} isFollowing={isFollowing} onToggleFollow={handleToggleFollow} />
             </Card.Text>
           )}
-          {profileImage && (
+          {userData.profile_picture && (
             <Card.Img
-              src={profileImage}
+              src={userData.profile_picture}
               alt="User Profile"
               className="img-fluid rounded-circle"
             />

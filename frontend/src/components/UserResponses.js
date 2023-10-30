@@ -10,7 +10,7 @@ function UserResponses({ userId }) {
   useEffect(() => {
     axios.get(`/api/responses/user/${userId}/`)
       .then((response) => {
-        setUserResponses(response.data);
+        setUserResponses(response.data.results);
       })
       .catch((error) => {
         console.error('Error fetching user responses:', error);

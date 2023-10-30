@@ -6,6 +6,7 @@ import '../styles/EditProfile.css';
 
 const EditProfile = () => {
   const { currentUser } = useAuth();
+  // eslint-disable-next-line
   const [user, setUser] = useState({});
   const [formData, setFormData] = useState({});
   const [profileImage, setProfileImage] = useState(null);
@@ -30,7 +31,7 @@ const EditProfile = () => {
       .catch((error) => {
         console.error('Error fetching user data:', error);
       });
-  }, []);
+  }, [currentUser.pk]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

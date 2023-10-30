@@ -23,7 +23,7 @@ function QuestionList({ data }) {
       }
 
       if (response.status === 200) {
-        const responseData = response.data;
+        const responseData = response.data.results;
         if (responseData.length === 0) {
           setHasMore(false);
         } else {
@@ -45,7 +45,7 @@ function QuestionList({ data }) {
           const userResponse = await axios.get(`/api/profiles/${question.user}`);
           return userResponse.data;
         } catch (error) {
-          console.error('Error fetching user details for question author:', error);
+          console.error('Error fetching user details for the question author:', error);
           return {};
         }
       })
@@ -64,7 +64,7 @@ function QuestionList({ data }) {
       });
     }
   }, [data]);
-
+  
   return (
     <Container className='user-data'>
       {data.length === 0 ? (

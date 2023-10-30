@@ -13,13 +13,12 @@ const FollowerList = () => {
       try {
         if (isLoggedIn && userId) {
           const response = await axios.get(`/api/followers/following/${userId}/`);
-          
-          const shuffledFollowings = shuffleArray(response.data);
+          const shuffledFollowings = shuffleArray(response.data.results);
           const randomFollowings = shuffledFollowings.slice(0, 10);
           setUsers(randomFollowings);
         } else {
           const response = await axios.get('/api/profiles/');
-          const shuffledUsers = shuffleArray(response.data);
+          const shuffledUsers = shuffleArray(response.data.results);
           const randomUsers = shuffledUsers.slice(0, 10);
           setUsers(randomUsers);
         }

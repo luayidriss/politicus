@@ -7,6 +7,7 @@ class QuestionListView(generics.ListCreateAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
 
+
     def get_queryset(self):
         keyword = self.request.query_params.get('q', None)
         queryset = Question.objects.all()
@@ -21,7 +22,7 @@ class QuestionDetailView(generics.RetrieveUpdateDestroyAPIView):
 class UserQuestionsListView(generics.ListCreateAPIView):
     serializer_class = QuestionSerializer
 
+
     def get_queryset(self):
         user_id = self.kwargs.get('user_id')
-        return Question.objects.filter(user=user_id)
-
+        return Question.objects.filter(user = user_id)

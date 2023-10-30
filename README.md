@@ -1,5 +1,7 @@
 # Politicus
 
+![Main Page](https://github.com/luayidriss/politicus/blob/7c3d3dbcb044bd66d8639f0663dd2b7046150cb3/media/feed.png)
+
 ## About
 
 Politicus is an information-sharing platform where users can ask questions about global political affairs and get responses from other users.
@@ -51,19 +53,33 @@ Politicus is an information-sharing platform where users can ask questions about
 
 ### Authentication
 
+![Main Page]()
+![Main Page]()
+![Main Page]()
+
+
 - **Sign-In, Sign-Out, and Registration**: Politicus provides a seamless authentication system that allows users to sign in, sign out, and register new accounts.
 
 ### Navigation & User Experience
+
+![Main Page]()
 
 - **User-Friendly Navigation**: A consistent and user-friendly navigation experience is offered with a top navigation bar on every page for easy access.
 - **Responsive Routing**: Smooth page transitions and routing ensure that content loads seamlessly without page refresh, enhancing the overall user experience.
 
 ### Information Sharing
 
+![Main Page]()
+
+![Main Page](https://github.com/luayidriss/politicus/blob/7c3d3dbcb044bd66d8639f0663dd2b7046150cb3/media/question-detail.png)
+
 - **Ask Questions**: Logged-in users can create and post questions, allowing them to share their inquiries with the community.
 - **Question Detail**: Users can explore individual questions to gain in-depth insights and participate in discussions.
 
 ### Content Discovery
+
+![Main Page](https://github.com/luayidriss/politicus/blob/7c3d3dbcb044bd66d8639f0663dd2b7046150cb3/media/feed.png)
+![Main Page](https://github.com/luayidriss/politicus/blob/7c3d3dbcb044bd66d8639f0663dd2b7046150cb3/media/search-bar.png)
 
 - **View Recent Questions**: Politicus offers a comprehensive view of the most recent questions, ordered by the latest postings.
 - **Keyword Search**: Users can search for questions and user profiles using keywords to discover content that aligns with their interests.
@@ -72,11 +88,19 @@ Politicus is an information-sharing platform where users can ask questions about
 
 ### Interaction & Engagement
 
+![Main Page]()
+![Main Page]()
+
+
 - **Add Responses**: Users can engage with questions by posting responses to share their thoughts and insights.
 - **Response Management**: Response creators can edit or delete their responses, giving them control over their contributions.
 - **View Responses**: Users can read responses to questions to gain a better understanding of the community's perspectives.
 
 ### User Profiles
+
+![Main Page](https://github.com/luayidriss/politicus/blob/7c3d3dbcb044bd66d8639f0663dd2b7046150cb3/media/profile.png)
+![Main Page](https://github.com/luayidriss/politicus/blob/7c3d3dbcb044bd66d8639f0663dd2b7046150cb3/media/user-questions-responses.png)
+![Main Page]()
 
 - **Explore User Profiles**: Users can visit the profiles of other users to learn more about their contributions and interests.
 - **User Stats**: Detailed statistics on user profiles include bios, the number of questions, responses, followers, and users followed.
@@ -87,8 +111,14 @@ Politicus is an information-sharing platform where users can ask questions about
 ## Design
 
 - **Colors**: Simple off-white-grey background and dark navbar.
+- **Wireframes**: The wireframes are attached below
+![Main Page](https://github.com/luayidriss/politicus/blob/7c3d3dbcb044bd66d8639f0663dd2b7046150cb3/media/wireframe_1.png)
+![Main Page](https://github.com/luayidriss/politicus/blob/7c3d3dbcb044bd66d8639f0663dd2b7046150cb3/media/wireframe_2.png)
+![Main Page](https://github.com/luayidriss/politicus/blob/7c3d3dbcb044bd66d8639f0663dd2b7046150cb3/media/wireframe_3.png)
 
 ## Database
+
+![Main Page](https://github.com/luayidriss/politicus/blob/7c3d3dbcb044bd66d8639f0663dd2b7046150cb3/media/Database%20Diagram.png)
 
 **Tables**:
 - Followers:

@@ -17,18 +17,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from .views import logout_route
+ from django.views.generic import TemplateView
 from dj_rest_auth.views import LoginView
 
 urlpatterns = [
-    path('dj-rest-auth/logout/', logout_route),
-    path('dj-rest-auth/', include('dj_rest_auth.urls')),
+    path('', TemplateView.as_view(template_name='index.html')),
+    path('api/dj-rest-auth/logout/', logout_route),
+    path('api/dj-rest-auth/', include('dj_rest_auth.urls')),
     path(
-        'dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')
+        'api/dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')
     ),
     path('api/admin/', admin.site.urls),
     path('api/profiles/', include('profiles.urls')),
     path('api/questions/', include('questions.urls')),
     path('api/responses/', include('responses.urls')),
     path('api/followers/', include('followers.urls')),
-    path('accounts/', include('allauth.urls')),
+    path('api/accounts/', include('allauth.urls')),
 ]
+
+handler404 = TemplateView.as_view(template_name='index.html')

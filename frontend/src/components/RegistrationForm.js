@@ -25,7 +25,6 @@ function RegistrationForm() {
       login();
       history.push('/');
     } catch (error) {
-      // Check if there is a response from the server with specific error messages
       if (error.response && error.response.data) {
         const { username, email, password1, password2 } = error.response.data;
         setError(
@@ -34,7 +33,6 @@ function RegistrationForm() {
       } else {
         setError('Registration failed. Please check your information.');
       }
-      console.error('Sign Up error:', error);
     }
   };
 

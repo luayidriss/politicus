@@ -23,7 +23,6 @@ const FollowerList = () => {
           setUsers(randomUsers);
         }
       } catch (error) {
-        console.error('Error fetching users:', error);
       }
     };
 

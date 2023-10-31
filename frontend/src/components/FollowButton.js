@@ -19,7 +19,6 @@ function FollowButton({ userId, isFollowing, onToggleFollow }) {
 
       onToggleFollow(!isFollowing);
     } catch (error) {
-      console.error('Error toggling follow:', error);
     } finally {
       setLoading(false);
     }

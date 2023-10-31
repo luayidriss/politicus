@@ -45,11 +45,9 @@ function ResponseForm({ questionId, onAddResponse, currentUser, editableResponse
                     onAddResponse(response.data);
                     history.push(`/questions/${questionId}`);
                 } else {
-                    console.error('Failed to create response');
                 }
             }
         } catch (error) {
-            console.error(`Error ${isEditing ? 'editing' : 'creating'} response:`, error);
         }
     };
 

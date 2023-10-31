@@ -19,11 +19,9 @@ const Home = () => {
     axios
       .get('/api/questions/')
       .then((response) => {
-        console.log(response.data)
         setFeedQuestions(response.data.results);
       })
       .catch((error) => {
-        console.error('Error fetching questions:', error);
       });
   };
 
@@ -36,7 +34,6 @@ const Home = () => {
           setSearchResults(response.data.results);
         })
         .catch((error) => {
-          console.error('Error searching:', error);
         });
     } else {
       setSearchResults([]);

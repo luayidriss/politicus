@@ -31,10 +31,8 @@ function QuestionList({ data }) {
           setQuestions([...questions, ...updatedQuestions]);
         }
       } else {
-        console.error('Failed to fetch more questions');
       }
     } catch (error) {
-      console.error('Error fetching more questions:', error);
     }
   }
 
@@ -45,7 +43,6 @@ function QuestionList({ data }) {
           const userResponse = await axios.get(`/api/profiles/${question.user}`);
           return userResponse.data;
         } catch (error) {
-          console.error('Error fetching user details for the question author:', error);
           return {};
         }
       })

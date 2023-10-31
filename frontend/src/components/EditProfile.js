@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Form, Button, Row, Col} from 'react-bootstrap';
+import { Container, Form, Button, Row, Col, Alert } from 'react-bootstrap';
 import { useAuth } from './AuthContext';
-import '../styles/EditProfile.css';
+import { useHistory } from 'react-router-dom';
 
 const EditProfile = () => {
   const { currentUser } = useAuth();
-  // eslint-disable-next-line
+  const history = useHistory();
   const [user, setUser] = useState({});
   const [formData, setFormData] = useState({});
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState({
+    updateUsernameError: null,
+    updateProfileError: null,
+    updatePasswordError: null,
+  });
 
   useEffect(() => {
     axios.get(`/api/profiles/${currentUser.pk}/`)
@@ -27,7 +32,7 @@ const EditProfile = () => {
         });
       })
       .catch((error) => {
-        console.error('Error fetching user data:', error);
+        setError({ updateProfileError: 'Error loading profile data.' });
       });
   }, [currentUser.pk]);
 
@@ -36,28 +41,14 @@ const EditProfile = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-
   const handleUpdateUsername = () => {
-    axios.put(`/api/profiles/${currentUser.pk}/`, { username: formData.username })
+    axios
+      .put(`/api/profiles/${currentUser.pk}/`, { username: formData.username })
       .then((response) => {
+        history.push(`/profile/${currentUser.pk}`);
       })
       .catch((error) => {
-        console.error('Error updating username:', error);
-      });
-  };
-
-  const handleUpdatePassword = () => {
-    if (password !== confirmPassword) {
-      console.error('Password and confirm password do not match.');
-      return;
-    }
-
-    axios.post('/dj-rest-auth/password/change/', { password })
-      .then((response) => {
-        console.log('Password updated successfully:', response.data);
-      })
-      .catch((error) => {
-        console.error('Error updating password:', error);
+        setError({ updateUsernameError: 'Error updating username.' });
       });
   };
 
@@ -70,16 +61,37 @@ const EditProfile = () => {
     updatedFormData.append('first_name', formData.first_name);
     updatedFormData.append('last_name', formData.last_name);
 
-
-    axios.patch(`/api/profiles/${currentUser.pk}/`, updatedFormData)
+    axios
+      .patch(`/api/profiles/${currentUser.pk}/`, updatedFormData)
       .then((response) => {
+        history.push(`/profile/${currentUser.pk}`);
       })
       .catch((error) => {
+        setError({ updateProfileError: 'Error updating profile.' });
+      });
+  };
+
+  const handleUpdatePassword = () => {
+    if (password !== confirmPassword) {
+      setError({ updatePasswordError: 'Passwords do not match.' });
+      return;
+    }
+
+    axios
+      .post('/dj-rest-auth/password/change/', { password })
+      .then((response) => {
+        history.push(`/profile/${currentUser.pk}`);
+      })
+      .catch((error) => {
+        setError({ updatePasswordError: 'Error updating password.' });
       });
   };
 
   return (
     <Container className="edit-profile-container mt-4">
+      {error.updateUsernameError && <Alert variant="danger">{error.updateUsernameError}</Alert>}
+      {error.updateProfileError && <Alert variant="danger">{error.updateProfileError}</Alert>}
+      {error.updatePasswordError && <Alert variant="danger">{error.updatePasswordError}</Alert>}
       <h2>Edit Profile</h2>
       <Form>
         <Form.Group>

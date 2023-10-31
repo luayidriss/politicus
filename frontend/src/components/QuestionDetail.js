@@ -20,7 +20,6 @@ function QuestionDetail() {
             const userResponse = await axios.get(`/api/profiles/${userId}`);
             return userResponse.data;
         } catch (error) {
-            console.error('Error fetching user details for question author:', error);
             return {};
         }
     }
@@ -30,11 +29,9 @@ function QuestionDetail() {
     };
 
     const handleAddResponse = (newResponse) => {
-        console.log('Response added:', newResponse);
     };
 
     const handleEditResponse = (responseToEdit) => {
-        console.log('Editing response:', responseToEdit);
         setEditableResponse(responseToEdit);
     };
 
@@ -47,7 +44,6 @@ function QuestionDetail() {
                 setQuestion(questionData);
             })
             .catch((error) => {
-                console.error('Error fetching question details:', error);
             });
     }, [questionId]);
 
@@ -61,7 +57,6 @@ function QuestionDetail() {
                 history.push('/');
             })
             .catch((error) => {
-                console.error('Error deleting question:', error);
             });
     }
 

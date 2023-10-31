@@ -16,11 +16,9 @@ function LoginForm() {
     try {
       const response = await axios.post('api/dj-rest-auth/login/', { username, password });
       login();
-      console.log('Login successful:', response.data);
       history.push('/');
     } catch (error) {
       setError('Login failed. Please check your credentials.');
-      console.error('Login error:', error);
     }
   };
 

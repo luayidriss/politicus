@@ -13,7 +13,6 @@ function UserResponses({ userId }) {
         setUserResponses(response.data.results);
       })
       .catch((error) => {
-        console.error('Error fetching user responses:', error);
       });
   }, [userId]);
 

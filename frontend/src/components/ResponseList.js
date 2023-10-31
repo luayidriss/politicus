@@ -20,7 +20,6 @@ function ResponseList({ questionId, currentUser, onEditResponse, refreshResponse
                 setResponses(updatedResponses);
             })
             .catch((error) => {
-                console.error('Error fetching responses:', error);
             });
     }, [questionId]);
 
@@ -29,7 +28,6 @@ function ResponseList({ questionId, currentUser, onEditResponse, refreshResponse
             const userResponse = await axios.get(`/api/profiles/${userId}`);
             return userResponse.data;
         } catch (error) {
-            console.error('Error fetching user details:', error);
             return {};
         }
     };
@@ -45,7 +43,6 @@ function ResponseList({ questionId, currentUser, onEditResponse, refreshResponse
                 history.push(`/questions/${questionId}`);
             })
             .catch((error) => {
-                console.error('Error deleting response:', error);
             });
     };
 

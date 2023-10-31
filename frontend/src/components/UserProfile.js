@@ -26,7 +26,6 @@ const UserProfile = ({ userId }) => {
           setQuestionCount(response.data.results.length);
         })
         .catch((error) => {
-          console.error('Error fetching user questions:', error);
         });
     }, 500);
   }, [userId]);
@@ -38,7 +37,6 @@ const UserProfile = ({ userId }) => {
           setResponseCount(response.data.results.length);
         })
         .catch((error) => {
-          console.error('Error fetching user responses:', error);
         });
     }, [userId]);
   }, [userId]);
@@ -51,7 +49,6 @@ const UserProfile = ({ userId }) => {
     const fetchData = async () => {
       try {
         const userDataResponse = await axios.get(`/api/profiles/${userId}/`);
-        console.log(userDataResponse.data)
         const userData = userDataResponse.data;
         setUserData(userData);
         setTimeout(() => {
@@ -60,7 +57,6 @@ const UserProfile = ({ userId }) => {
               setFollowers(followersData.data.results);
             })
             .catch((error) => {
-              console.error('Error fetching followers:', error);
             });
         }, 1500);
 
@@ -70,7 +66,6 @@ const UserProfile = ({ userId }) => {
               setFollowing(followingData.data.results);
             })
             .catch((error) => {
-              console.error('Error fetching following:', error);
             });
         }, 2000);
 
@@ -84,7 +79,6 @@ const UserProfile = ({ userId }) => {
                 setIsFollowing(currentUserFollows);
               })
               .catch((error) => {
-                console.error('Error checking if following:', error);
               });
           }, 2500);
         }
@@ -94,7 +88,6 @@ const UserProfile = ({ userId }) => {
           fetchUserResponses();
         }, 3000);
       } catch (error) {
-        console.error('Error fetching user data:', error);
       }
     };
 

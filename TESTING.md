@@ -42,11 +42,11 @@
 ### HTML Validation:
 
 - No errors or warnings were found when passing through the official [W3C](https://validator.w3.org/) validator. This was done manually passing the app url to the validator.
-- [HTML validation report](/workspace/politicus/validations/html.png)
+- [HTML validation report](https://github.com/luayidriss/politicus/blob/fd874fab08e40ebe8861957d15c16499a6ba144e/validations/html.png)
 
 ### CSS Validation:
 
-- [Full CSS Validation Report](documentation/testing/css_validation.pdf)
+- [Full CSS Validation Report](https://github.com/luayidriss/politicus/blob/fd874fab08e40ebe8861957d15c16499a6ba144e/validations/css.png)
 - For css validation I have used the official [W3C (Jigsaw)](https://jigsaw.w3.org/css-validator/#validate_by_uri) validator
 
 ### JS Validation:
@@ -56,7 +56,7 @@
 
 ### Python Validation:
 
-- [Full Python Validation Report](documentation/testing/python_validation.pdf)
-- For python validation I have used the official [Pep8Online](http://pep8online.com/) validator
+- [Full Python Validation Report](https://github.com/luayidriss/politicus/tree/fd874fab08e40ebe8861957d15c16499a6ba144e/validations/python)
+- For python validation I have used the official [PythonChecker](https://www.pythonchecker.com/) validator
 
 ---

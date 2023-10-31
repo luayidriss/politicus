@@ -43,7 +43,6 @@ function QuestionForm({ questionId }) {
             }
 
         } catch (error) {
-            console.error('Error creating/updating question:', error);
         }
     };
 

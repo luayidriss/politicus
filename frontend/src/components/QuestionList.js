@@ -1,26 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import axios from 'axios';
 import { Card, Container } from 'react-bootstrap';
 import '../styles/Lists.css';
 
-function QuestionList({ data }) {
+function QuestionList() {
   const [questions, setQuestions] = useState([]);
   const [hasMore, setHasMore] = useState(true);
+  const [nextPageUrl, setNextPageUrl] = useState('/api/questions');
 
-  const fetchMoreQuestions = async () => {
+  const fetchMoreQuestions = useCallback(async () => {
     if (!hasMore) {
       return;
     }
 
     try {
-      let response;
-      if (data.length === 0) {
-        response = await axios.get(`/api/questions/?offset=${questions.length}`);
-      } else {
-        response = await axios.get(`/api/questions/?q=${data}&offset=${questions.length}`);
-      }
+      const response = await axios.get(nextPageUrl);
 
       if (response.status === 200) {
         const responseData = response.data.results;
@@ -29,12 +25,20 @@ function QuestionList({ data }) {
         } else {
           const updatedQuestions = await fetchUserDetailsForQuestions(responseData);
           setQuestions([...questions, ...updatedQuestions]);
+
+          if (response.data.next) {
+            setNextPageUrl(response.data.next);
+          } else {
+            setHasMore(false);
+          }
         }
       } else {
+        // Handle the error if needed.
       }
     } catch (error) {
+      // Handle the error if needed.
     }
-  }
+  }, [hasMore, nextPageUrl, questions]);
 
   const fetchUserDetailsForQuestions = async (questionData) => {
     const userDetails = await Promise.all(
@@ -55,16 +59,12 @@ function QuestionList({ data }) {
   };
 
   useEffect(() => {
-    if (data && data.length > 0) {
-      fetchUserDetailsForQuestions(data).then((updatedQuestions) => {
-        setQuestions(updatedQuestions);
-      });
-    }
-  }, [data]);
-  
+    fetchMoreQuestions();
+  }, [fetchMoreQuestions]);
+
   return (
     <Container className='user-data'>
-      {data.length === 0 ? (
+      {questions.length === 0 ? (
         <p>No questions found</p>
       ) : (
         <InfiniteScroll
@@ -73,18 +73,20 @@ function QuestionList({ data }) {
           hasMore={hasMore}
           loader={<h4>Loading...</h4>}
         >
-          {questions.map((question) => {
-            return (
-              <Card key={question.id} className="mb-3">
-                <Card.Body>
-                  <Card.Title>{question.question}</Card.Title>
-                  <Card.Text>{question.description}</Card.Text>
-                  <Card.Text>Author: <Link to={`/profile/${question.user}`}>{question.userDetails.username}</Link></Card.Text>
-                  <Link to={`/questions/${question.id}`} className="btn btn-primary">View Question</Link>
-                </Card.Body>
-              </Card>
-            );
-          })}
+          {questions.map((question) => (
+            <Card key={question.id} className="mb-3">
+              <Card.Body>
+                <Card.Title>{question.question}</Card.Title>
+                <Card.Text>{question.description}</Card.Text>
+                <Card.Text>
+                  Author: <Link to={`/profile/${question.user}`}>{question.userDetails.username}</Link>
+                </Card.Text>
+                <Link to={`/questions/${question.id}`} className="btn btn-primary">
+                  View Question
+                </Link>
+              </Card.Body>
+            </Card>
+          ))}
         </InfiniteScroll>
       )}
     </Container>

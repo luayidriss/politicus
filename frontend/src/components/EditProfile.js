@@ -8,7 +8,15 @@ const EditProfile = () => {
   const { currentUser } = useAuth();
   const history = useHistory();
   const [user, setUser] = useState({});
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    country: '',
+    birth_date: '',
+    bio: '',
+    first_name: '',
+    last_name: '',
+  });
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState({
@@ -41,20 +49,11 @@ const EditProfile = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleUpdateUsername = () => {
-    axios
-      .put(`/api/profiles/${currentUser.pk}/`, { username: formData.username })
-      .then((response) => {
-        history.push(`/profile/${currentUser.pk}`);
-      })
-      .catch((error) => {
-        setError({ updateUsernameError: 'Error updating username.' });
-      });
-  };
 
   const handleUpdateProfile = () => {
     const updatedFormData = new FormData();
     updatedFormData.append('username', formData.username);
+    updatedFormData.append('email', formData.email);
     updatedFormData.append('country', formData.country);
     updatedFormData.append('birth_date', formData.birth_date);
     updatedFormData.append('bio', formData.bio);
@@ -76,9 +75,12 @@ const EditProfile = () => {
       setError({ updatePasswordError: 'Passwords do not match.' });
       return;
     }
-
+  
     axios
-      .post('/dj-rest-auth/password/change/', { password })
+      .post('api/dj-rest-auth/password/change/', {
+        new_password1: password,
+        new_password2: confirmPassword,
+      })
       .then((response) => {
         history.push(`/profile/${currentUser.pk}`);
       })
@@ -103,9 +105,6 @@ const EditProfile = () => {
             onChange={handleChange}
             className="form-control"
           />
-          <Button variant="primary" onClick={handleUpdateUsername} className="update-button">
-            Update Username
-          </Button>
         </Form.Group>
         <Form.Group>
           <Form.Label className="form-label">Country</Form.Label>

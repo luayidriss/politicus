@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -18,6 +18,16 @@ function ResponseForm({ questionId, onAddResponse, currentUser, editableResponse
         onCancelEdit(null);
     };
 
+    useEffect(() => {
+        if (editableResponse) {
+            setResponseText(editableResponse.response || '');
+            setAdditionalResources(editableResponse.additional_resources || '');
+        } else {
+            setResponseText('');
+            setAdditionalResources('');
+        }
+    }, [editableResponse]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -28,7 +38,7 @@ function ResponseForm({ questionId, onAddResponse, currentUser, editableResponse
                     additional_resources: additionalResources,
                 });
                 handleCancelEdit();
-                history.push(`/questions/${questionId}`);
+                history.go(0)
             } else {
                 const questionDetails = await axios.get(`/api/questions/${questionId}`);
                 const question = questionDetails.data;
@@ -43,7 +53,7 @@ function ResponseForm({ questionId, onAddResponse, currentUser, editableResponse
                 if (response.status === 201) {
                     handleCancelEdit();
                     onAddResponse(response.data);
-                    history.push(`/questions/${questionId}`);
+                    history.go(0)
                 } else {
                 }
             }

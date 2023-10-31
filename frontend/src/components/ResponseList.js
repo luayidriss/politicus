@@ -38,13 +38,14 @@ function ResponseList({ questionId, currentUser, onEditResponse, refreshResponse
     };
 
     const handleDelete = (responseId) => {
-        axios.delete(`/api/responses/${responseId}`)
-            .then(() => {
-                history.push(`/questions/${questionId}`);
-            })
-            .catch((error) => {
-            });
-    };
+        axios
+          .delete(`/api/responses/${responseId}`)
+          .then(() => {
+            history.go(0)
+          })
+          .catch((error) => {
+          });
+      };
 
     return (
         <div className="response-list">

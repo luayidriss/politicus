@@ -26,8 +26,6 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, username, password, **extra_fields)
 
 class CustomUser(AbstractUser):
-    profile_picture = CloudinaryField('image',
-default = 'politicus_avatars/placeholder')
     bio = models.TextField(max_length=500, blank=True, null=True)
     email = models.EmailField(max_length=254, unique=True)
     username = models.CharField(max_length=150, unique=True)

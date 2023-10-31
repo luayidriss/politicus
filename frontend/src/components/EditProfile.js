@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Form, Button, Row, Col, Image } from 'react-bootstrap';
+import { Container, Form, Button, Row, Col} from 'react-bootstrap';
 import { useAuth } from './AuthContext';
 import '../styles/EditProfile.css';
 
@@ -9,7 +9,6 @@ const EditProfile = () => {
   // eslint-disable-next-line
   const [user, setUser] = useState({});
   const [formData, setFormData] = useState({});
-  const [profileImage, setProfileImage] = useState(null);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -26,7 +25,6 @@ const EditProfile = () => {
           first_name: response.data.first_name,
           last_name: response.data.last_name,
         });
-        setProfileImage(response.data.profile_image);
       })
       .catch((error) => {
         console.error('Error fetching user data:', error);
@@ -38,12 +36,6 @@ const EditProfile = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleProfileImageChange = (e) => {
-    const file = e.target.files[0];
-    console.log(file)
-    setProfileImage(URL.createObjectURL(file));
-    console.log(profileImage)
-  };
 
   const handleUpdateUsername = () => {
     axios.put(`/api/profiles/${currentUser.pk}/`, { username: formData.username })
@@ -78,19 +70,11 @@ const EditProfile = () => {
     updatedFormData.append('first_name', formData.first_name);
     updatedFormData.append('last_name', formData.last_name);
 
-    console.log(profileImage)
-
-    if (profileImage) {
-      updatedFormData.append('profile_image', profileImage);
-    }
 
     axios.patch(`/api/profiles/${currentUser.pk}/`, updatedFormData)
       .then((response) => {
-        console.log(profileImage)
-        console.log('Profile data updated successfully:', response.data);
       })
       .catch((error) => {
-        console.error('Error updating profile data:', error);
       });
   };
 
@@ -168,22 +152,6 @@ const EditProfile = () => {
             </Form.Group>
           </Col>
         </Row>
-        <Form.Group>
-          <Form.Label className="form-label">Profile Picture</Form.Label>
-          <Form.File
-            id="custom-file"
-            label="Choose a profile picture"
-            custom
-            onChange={handleProfileImageChange}
-          />
-        </Form.Group>
-        {profileImage && (
-          <Image
-            src={profileImage}
-            alt="User Profile"
-            className="img-fluid rounded-circle mb-3 user-image"
-          />
-        )}
         <Button variant="primary" onClick={handleUpdateProfile} className="update-button">
           Update Profile
         </Button>

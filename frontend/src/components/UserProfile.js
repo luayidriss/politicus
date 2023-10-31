@@ -10,7 +10,7 @@ import '../styles/UserProfile.css';
 
 const UserProfile = ({ userId }) => {
   const { currentUser } = useAuth();
-  const [userData, setUserData] = useState({ username: '', profile_picture: '' });
+  const [userData, setUserData] = useState({ username: '' });
   const [questionCount, setQuestionCount] = useState(0);
   const [responseCount, setResponseCount] = useState(0);
   const [followers, setFollowers] = useState([]);
@@ -117,13 +117,6 @@ const UserProfile = ({ userId }) => {
             <Card.Text>
               <FollowButton userId={userId} isFollowing={isFollowing} onToggleFollow={handleToggleFollow} />
             </Card.Text>
-          )}
-          {userData.profile_picture && (
-            <Card.Img
-              src={userData.profile_picture}
-              alt="User Profile"
-              className="img-fluid rounded-circle"
-            />
           )}
           {isCurrentUser && currentUser && (
             <Button onClick={navigateToEditProfile}>Edit Profile</Button>

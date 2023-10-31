@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useAuth } from './AuthContext';
 import '../styles/NavBar.css';
 
@@ -31,18 +30,18 @@ const NavigationBar = () => {
             </Link>
           </Nav.Item>
           {loggedIn && (
-            <NavDropdown title="Profile" id="basic-nav-dropdown" className="nav-dropdown-dark">
-              <NavDropdown.Item>
-                <Link to="/add-question" className="nav-link">
-                  Add Questions
-                </Link>
-              </NavDropdown.Item>
-              <NavDropdown.Item>
-                <Link to={`/profile/${currentUser.pk}/`} className="nav-link">
-                  My Profile
-                </Link>
-              </NavDropdown.Item>
-            </NavDropdown>
+            <Nav.Item>
+              <Link to="/add-question" className="nav-link">
+                Add Questions
+              </Link>
+            </Nav.Item>
+          )}
+          {loggedIn && (
+            <Nav.Item>
+              <Link to={`/profile/${currentUser.pk}/`} className="nav-link">
+                My Profile
+              </Link>
+            </Nav.Item>
           )}
         </Nav>
         <Nav className="ml-auto">

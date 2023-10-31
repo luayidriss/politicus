@@ -165,7 +165,7 @@ Please refer to the [TESTING.md](TESTING.md) file for all test-related documenta
 
 - The app was deployed to [Heroku](https://heroku.com/).
 
-- **The app can be reached by the [link](https://dr-meetings.onrender.com/).**
+- **The app can be reached by the [link](https://luay-politicus-9f3ab0dca991.herokuapp.com/).**
 
 
 ## Credits

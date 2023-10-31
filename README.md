@@ -147,7 +147,6 @@ Politicus is an information-sharing platform where users can ask questions about
 
 | Field Name | Field Type                                |
 |------------|------------------------------------------|
-| profile_picture | CloudinaryField for profile pictures with a custom folder 'politicus_avatars' |
 | bio        | TextField with a maximum length of 500, nullable and blank |
 | email      | EmailField with a maximum length of 254, unique |
 | username   | CharField with a maximum length of 150, unique |

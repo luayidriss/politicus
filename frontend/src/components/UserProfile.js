@@ -51,9 +51,9 @@ const UserProfile = ({ userId }) => {
     const fetchData = async () => {
       try {
         const userDataResponse = await axios.get(`/api/profiles/${userId}/`);
+        console.log(userDataResponse.data)
         const userData = userDataResponse.data;
         setUserData(userData);
-
         setTimeout(() => {
           axios.get(`/api/followers/followers/${userId}/`)
             .then((followersData) => {

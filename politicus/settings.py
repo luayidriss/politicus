@@ -1,7 +1,9 @@
 import os
 from pathlib import Path
-import dj_database_url
 import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+import dj_database_url
 from datetime import datetime, timedelta
 
 # Load environment variables from .env file if it exists
@@ -176,9 +178,17 @@ USE_I18N = True
 
 USE_TZ = True
 
-CLOUDINARY_STORAGE = {
-    'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
-}
+cloudinary.config(
+    cloud_name=os.environ.get("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.environ.get("CLOUDINARY_API_KEY"),
+    api_secret=os.environ.get("CLOUDINARY_API_SECRET"),
+    secure=True,
+)
+
+# CLOUDINARY_STORAGE = {
+#     'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
+# }
+
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = '/media/'
 

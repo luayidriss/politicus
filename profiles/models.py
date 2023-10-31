@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager, Group, Permission
 from django.db import models
+import cloudinary
 from cloudinary.models import CloudinaryField
 from django.utils import timezone
 
@@ -25,12 +26,8 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, username, password, **extra_fields)
 
 class CustomUser(AbstractUser):
-    profile_picture = CloudinaryField(
-        "profile_picture",
-        folder="politicus_avatars",
-        null=True,
-        blank=True,
-    )
+    profile_picture = CloudinaryField('image',
+default = 'politicus_avatars/placeholder')
     bio = models.TextField(max_length=500, blank=True, null=True)
     email = models.EmailField(max_length=254, unique=True)
     username = models.CharField(max_length=150, unique=True)

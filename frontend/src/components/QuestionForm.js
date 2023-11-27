@@ -38,8 +38,8 @@ function QuestionForm({ questionId }) {
                 history.push(`/questions/${response.data.id}`);
             } else {
                 const response = await axios.post('/api/questions/', {
-                    question,
-                    description,
+                    question: question,
+                    description: description,
                     user: currentUser.pk,
                 });
                 history.push(`/questions/${response.data.id}`);

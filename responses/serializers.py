@@ -13,3 +13,11 @@ class ResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Response
         fields = '__all__'
+        
+        response = data.get('response', '')
+
+        if not response:
+            raise serializers.ValidationError("Response cannot be empty.")
+
+        return data
+

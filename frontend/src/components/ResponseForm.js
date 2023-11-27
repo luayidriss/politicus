@@ -11,7 +11,7 @@ function ResponseForm({ questionId, onAddResponse, currentUser, editableResponse
     );
     const isEditing = !!editableResponse;
     const history = useHistory();
-
+    const [error, setError] = useState(null);
     const handleCancelEdit = () => {
         setResponseText('');
         setAdditionalResources('');
@@ -55,9 +55,15 @@ function ResponseForm({ questionId, onAddResponse, currentUser, editableResponse
                     onAddResponse(response.data);
                     history.go(0)
                 } else {
+                    setError('Error submitting the response.');
                 }
             }
         } catch (error) {
+            if (error.response && error.response.data) {
+                setError(error.response.data.detail || 'Error submitting the response.');
+            } else {
+                setError('Error submitting the response.');
+            }
         }
     };
 
@@ -65,6 +71,7 @@ function ResponseForm({ questionId, onAddResponse, currentUser, editableResponse
         <div className="comment-section">
             <div className="response-form">
                 <h3>{isEditing ? 'Edit Response' : 'Add a Response'}</h3>
+                {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="response">
                         <Form.Control

@@ -10,7 +10,9 @@ function QuestionForm({ questionId }) {
     const [description, setDescription] = useState('');
     const [isEditMode, setIsEditMode] = useState(false);
     const { currentUser } = useAuth();
+    const [error, setError] = useState(null);
     const history = useHistory();
+
     useEffect(() => {
         if (questionId) {
             axios.get(`/api/questions/${questionId}`)
@@ -21,6 +23,11 @@ function QuestionForm({ questionId }) {
                     setIsEditMode(true);
                 })
                 .catch((error) => {
+                    if (error.response) {
+                        setError(error.response.data.detail);
+                    } else {
+                        setError('Error fetching question data.');
+                    }
                 });
         }
     }, [questionId]);
@@ -45,6 +52,11 @@ function QuestionForm({ questionId }) {
             }
 
         } catch (error) {
+            if (error.response) {
+                setError(error.response.data.detail);
+            } else {
+                setError('Error submitting the question.');
+            }
         }
     };
 
@@ -52,6 +64,7 @@ function QuestionForm({ questionId }) {
         <div className="page-container">
             <div className="question-form-container">
                 <h2>Ask your Question</h2>
+                {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="title">
                         <Form.Label className="form-label">Question</Form.Label>

@@ -3,7 +3,7 @@ from django.conf import settings
 from questions.models import Question
 
 class Response(models.Model):
-    response = models.TextField()
+    response = models.TextField(blank=False)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1)
     additional_resources = models.URLField(blank=True, null=True)

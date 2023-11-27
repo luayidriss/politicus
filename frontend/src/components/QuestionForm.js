@@ -10,7 +10,7 @@ function QuestionForm({ questionId }) {
     const [description, setDescription] = useState('');
     const [isEditMode, setIsEditMode] = useState(false);
     const { currentUser } = useAuth();
-    const [errors, setErrors] = useState({});
+    const [error, setError] = useState(null);
     const history = useHistory();
 
     useEffect(() => {
@@ -30,9 +30,9 @@ function QuestionForm({ questionId }) {
 
     const handleApiError = (error) => {
         if (error.response && error.response.status === 400) {
-            setErrors(error.response.data);
+            setError(error.response.data.detail || 'An error occurred.');
         } else {
-            setErrors({});
+            setError('An error occurred.');
         }
     };
 
@@ -63,9 +63,7 @@ function QuestionForm({ questionId }) {
         <div className="page-container">
             <div className="question-form-container">
                 <h2>Ask your Question</h2>
-                {errors.non_field_errors && (
-                    <Alert variant="danger">{errors.non_field_errors.join(', ')}</Alert>
-                )}
+                {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="title">
                         <Form.Label className="form-label">Question</Form.Label>
@@ -75,9 +73,6 @@ function QuestionForm({ questionId }) {
                             onChange={(e) => setQuestion(e.target.value)}
                             className="form-control"
                         />
-                        {errors.question && (
-                            <Form.Text className="text-danger">{errors.question.join(', ')}</Form.Text>
-                        )}
                     </Form.Group>
 
                     <Form.Group controlId="content">
@@ -88,9 +83,6 @@ function QuestionForm({ questionId }) {
                             onChange={(e) => setDescription(e.target.value)}
                             className="form-control"
                         />
-                        {errors.description && (
-                            <Form.Text className="text-danger">{errors.description.join(', ')}</Form.Text>
-                        )}
                     </Form.Group>
 
                     <Button variant="primary" type="submit">

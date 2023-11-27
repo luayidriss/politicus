@@ -1,15 +1,8 @@
-from rest_framework import generics
-from .models import CustomUser
-from .serializers import UserSerializer, UserUpdateSerializer
+from django.urls import path
+from .views import UserListView, UserDetailView, UserUpdateView
 
-class UserListView(generics.ListCreateAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = UserSerializer
-
-class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = UserSerializer
-
-class UserUpdateView(generics.RetrieveUpdateAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = UserUpdateSerializer
+urlpatterns = [
+    path('', UserListView.as_view(), name='user-list'),
+    path('<int:pk>/', UserDetailView.as_view(), name='user-detail'),
+    path('<int:pk>/update/', UserUpdateView.as_view(), name='user-update'),
+]

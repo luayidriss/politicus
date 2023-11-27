@@ -48,8 +48,6 @@ function QuestionForm({ questionId }) {
         }
     };
 
-    console.log(currentUser.pk)
-    
     return (
         <div className="page-container">
             <div className="question-form-container">

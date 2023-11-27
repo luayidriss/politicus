@@ -15,6 +15,9 @@ class QuestionListView(generics.ListCreateAPIView):
             queryset = queryset.filter(Q(question__icontains=keyword) | Q(description__icontains=keyword))
         return queryset
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 class QuestionDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer

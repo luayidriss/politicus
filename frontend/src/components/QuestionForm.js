@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import { useAuth } from './AuthContext';
 import '../styles/QuestionForm.css';
 
 function QuestionForm({ questionId }) {
     const [question, setQuestion] = useState('');
     const [description, setDescription] = useState('');
     const [isEditMode, setIsEditMode] = useState(false);
+    const { currentUser } = useAuth();
     const history = useHistory();
 
     useEffect(() => {
@@ -38,6 +40,7 @@ function QuestionForm({ questionId }) {
                 const response = await axios.post('/api/questions/', {
                     question,
                     description,
+                    user: currentUser.pk,
                 });
                 history.push(`/questions/${response.data.id}`);
             }

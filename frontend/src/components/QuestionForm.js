@@ -50,10 +50,21 @@ function QuestionForm({ questionId }) {
                 history.push(`/questions/${response.data.id}`);
             }
         } catch (error) {
-            if (error.response?.status ==! 400) {
-                setError(error.response?.data)
+            if (error.response && error.response.data) {
+              const { non_field_errors, ...fieldErrors } = error.response.data;
+          
+              const fieldErrorMessages = Object.values(fieldErrors)
+                .map((errorList) => errorList.join(' '))
+                .join(' ');
+          
+              const errorMessage =
+                `${non_field_errors || ''} ${fieldErrorMessages || ''}`.trim();
+          
+              setError(errorMessage);
+            } else {
+              setError('Question submission failed. Please check your information.');
             }
-        }
+          }
     };
 
     return (

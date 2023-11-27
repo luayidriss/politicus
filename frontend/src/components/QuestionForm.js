@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from './AuthContext';
@@ -10,7 +10,7 @@ function QuestionForm({ questionId }) {
     const [description, setDescription] = useState('');
     const [isEditMode, setIsEditMode] = useState(false);
     const { currentUser } = useAuth();
-    const [error, setError] = useState(null);
+    const [errors, setErrors] = useState({});
     const history = useHistory();
 
     useEffect(() => {
@@ -23,14 +23,18 @@ function QuestionForm({ questionId }) {
                     setIsEditMode(true);
                 })
                 .catch((error) => {
-                    if (error.response) {
-                        setError(error.response.data.detail);
-                    } else {
-                        setError('Error fetching question data.');
-                    }
+                    handleApiError(error);
                 });
         }
     }, [questionId]);
+
+    const handleApiError = (error) => {
+        if (error.response && error.response.status === 400) {
+            setErrors(error.response.data);
+        } else {
+            setErrors({});
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -50,13 +54,8 @@ function QuestionForm({ questionId }) {
                 });
                 history.push(`/questions/${response.data.id}`);
             }
-
         } catch (error) {
-            if (error.response) {
-                setError(error.response.data.detail);
-            } else {
-                setError('Error submitting the question.');
-            }
+            handleApiError(error);
         }
     };
 
@@ -64,7 +63,9 @@ function QuestionForm({ questionId }) {
         <div className="page-container">
             <div className="question-form-container">
                 <h2>Ask your Question</h2>
-                {error && <Alert variant="danger">{error}</Alert>}
+                {errors.non_field_errors && (
+                    <Alert variant="danger">{errors.non_field_errors.join(', ')}</Alert>
+                )}
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="title">
                         <Form.Label className="form-label">Question</Form.Label>
@@ -74,6 +75,9 @@ function QuestionForm({ questionId }) {
                             onChange={(e) => setQuestion(e.target.value)}
                             className="form-control"
                         />
+                        {errors.question && (
+                            <Form.Text className="text-danger">{errors.question.join(', ')}</Form.Text>
+                        )}
                     </Form.Group>
 
                     <Form.Group controlId="content">
@@ -84,6 +88,9 @@ function QuestionForm({ questionId }) {
                             onChange={(e) => setDescription(e.target.value)}
                             className="form-control"
                         />
+                        {errors.description && (
+                            <Form.Text className="text-danger">{errors.description.join(', ')}</Form.Text>
+                        )}
                     </Form.Group>
 
                     <Button variant="primary" type="submit">

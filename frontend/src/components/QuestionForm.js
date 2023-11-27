@@ -23,18 +23,13 @@ function QuestionForm({ questionId }) {
                     setIsEditMode(true);
                 })
                 .catch((error) => {
-                    handleApiError(error);
+                    if (error.response?.status ==! 400) {
+                        setError(error.response?.data)
+                    }
                 });
         }
     }, [questionId]);
 
-    const handleApiError = (error) => {
-        if (error.response && error.response.status === 400) {
-            setError(error.response.data.detail || 'An error occurred.');
-        } else {
-            setError('An error occurred.');
-        }
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -55,7 +50,9 @@ function QuestionForm({ questionId }) {
                 history.push(`/questions/${response.data.id}`);
             }
         } catch (error) {
-            handleApiError(error);
+            if (error.response?.status ==! 400) {
+                setError(error.response?.data)
+            }
         }
     };
 

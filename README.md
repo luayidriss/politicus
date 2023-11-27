@@ -167,7 +167,29 @@ Please refer to the [TESTING.md](TESTING.md) file for all test-related documenta
 
 - **The app can be reached by the [link](https://luay-politicus-9f3ab0dca991.herokuapp.com/).**
 
+## Deployment steps
 
+- add prebuild script
+- add Procfile
+- remove all console.logs
+- use Bootstrap default imports to minimize the build
+- deploy to Heroku
+
+## Libraries, contexts and hooks:
+
+- react-infinite-scroll-component
+  - to replace traditional pagination with lazy loading instead of pagination to make the application more performant and seem more snappy/ engaging
+- react-bootstrap:
+  - to add bootstrap styling in React
+- react-router-dom: 
+  - implementing dynamic routing to the web app
+- axios:
+  - to communinicate with my drf api.
+
+- contexts:
+  - CurrentUserContext exposes the user state to the entire app. Relevant components can subscribe to its changes
+
+---
 ## Credits
 
 - GitHub for giving me the platform to design my project.

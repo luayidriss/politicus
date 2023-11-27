@@ -9,6 +9,7 @@ function QuestionList() {
   const [questions, setQuestions] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [nextPageUrl, setNextPageUrl] = useState('/api/questions');
+  const [errors, setErrors] = useState([]);
 
   const fetchMoreQuestions = useCallback(async () => {
     if (!hasMore) {
@@ -33,12 +34,12 @@ function QuestionList() {
           }
         }
       } else {
-        // Handle the error if needed.
+        setErrors(['Error fetching questions.']);
       }
     } catch (error) {
-      // Handle the error if needed.
+      setErrors([...errors, error.message]);
     }
-  }, [hasMore, nextPageUrl, questions]);
+  }, [hasMore, nextPageUrl, questions, errors]);
 
   const fetchUserDetailsForQuestions = async (questionData) => {
     const userDetails = await Promise.all(
@@ -47,6 +48,7 @@ function QuestionList() {
           const userResponse = await axios.get(`/api/profiles/${question.user}`);
           return userResponse.data;
         } catch (error) {
+          setErrors([...errors, error.message]);
           return {};
         }
       })
@@ -64,6 +66,16 @@ function QuestionList() {
 
   return (
     <Container className='user-data'>
+      {errors.length > 0 && (
+        <div className="error-container">
+          <p>Errors:</p>
+          <ul>
+            {errors.map((error, index) => (
+              <li key={index}>{error}</li>
+            ))}
+          </ul>
+        </div>
+      )}
       {questions.length === 0 ? (
         <p>No questions found</p>
       ) : (

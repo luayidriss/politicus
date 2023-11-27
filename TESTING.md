@@ -37,6 +37,62 @@
 |                                                        | 6. Update your username and password.                  | Changes are saved successfully.             | Passed  |
 
 
+## Testing API
+
+### User Profiles Endpoints:
+
+| Endpoint                        | Method | Description                                    | Expected Result                         |
+|---------------------------------|--------|------------------------------------------------|------------------------------------------|
+| `/api/profiles/`                 | GET    | Retrieve a list of all user profiles           | List of user profiles with their details |
+| `/api/profiles/`                 | POST   | Create a new user profile                     | New user profile is created              |
+| `/api/profiles/<user_id>/`       | GET    | Retrieve details of a specific user profile   | Details of the specified user profile    |
+| `/api/profiles/<user_id>/update/`| GET    | Retrieve the update form for a user profile   | Form with existing user profile details  |
+| `/api/profiles/<user_id>/update/`| PUT    | Update details of a specific user profile     | User profile details are successfully updated |
+| `/api/profiles/<user_id>/update/`| PATCH  | Partially update details of a user profile    | User profile details are partially updated |
+| `/api/profiles/<user_id>/update/`| DELETE | Remove a specific user profile                | User profile is successfully removed     |
+
+### Questions Endpoints:
+
+| Endpoint                        | Method | Description                                    | Expected Result                         |
+|---------------------------------|--------|------------------------------------------------|------------------------------------------|
+| `/api/questions/`               | GET    | Retrieve a list of all questions               | List of questions with their details    |
+| `/api/questions/`               | POST   | Create a new question                         | New question is created                  |
+| `/api/questions/<question_id>/` | GET    | Retrieve details of a specific question       | Details of the specified question        |
+| `/api/questions/<question_id>/` | PUT    | Update details of a specific question         | Question details are successfully updated |
+| `/api/questions/<question_id>/` | PATCH  | Partially update details of a question        | Question details are partially updated  |
+| `/api/questions/<question_id>/` | DELETE | Remove a specific question                    | Question is successfully removed         |
+| `/api/questions/?q=<keyword>`   | GET    | Search for questions based on a keyword       | List of questions matching the keyword   |
+| `/api/questions/user/<user_id>/` | GET    | Retrieve a list of questions by a specific user | List of questions created by the specified user |
+| `/api/questions/user/<user_id>/` | POST   | Create a new question for a specific user     | New question is created for the specified user |
+| `/api/questions/user/<user_id>/` | GET    | Retrieve details of a specific user's question | Details of the specified user's question |
+
+### Responses Endpoints:
+
+| Endpoint                               | Method | Description                                         | Expected Result                              |
+|----------------------------------------|--------|-----------------------------------------------------|-----------------------------------------------|
+| `/api/responses/`                      | GET    | Retrieve a list of all responses                   | List of responses with their details         |
+| `/api/responses/`                      | POST   | Create a new response                              | New response is created                       |
+| `/api/responses/<response_id>/`        | GET    | Retrieve details of a specific response            | Details of the specified response             |
+| `/api/responses/<response_id>/`        | PUT    | Update details of a specific response              | Response details are successfully updated    |
+| `/api/responses/<response_id>/`        | PATCH  | Partially update details of a response             | Response details are partially updated        |
+| `/api/responses/<response_id>/`        | DELETE | Remove a specific response                         | Response is successfully removed              |
+| `/api/responses/?question=<question_id>` | GET | Retrieve responses for a specific question        | List of responses for the specified question  |
+| `/api/responses/question/<question_id>/`| GET | Retrieve responses for a specific question (alternate endpoint) | List of responses for the specified question  |
+| `/api/responses/question/<question_id>/`| POST| Create a new response for a specific question     | New response is created for the specified question |
+| `/api/responses/user/<user_id>/`       | GET    | Retrieve a list of responses by a specific user    | List of responses created by the specified user|
+| `/api/responses/user/<user_id>/`       | POST   | Create a new response for a specific user          | New response is created for the specified user |
+| `/api/responses/user/<user_id>/`       | GET    | Retrieve details of a specific user's response    | Details of the specified user's response      |
+
+### Follower Endpoints:
+
+| Endpoint                          | Method | Description                                    | Expected Result                                  |
+|-----------------------------------|--------|------------------------------------------------|---------------------------------------------------|
+| `/api/followers/<user_id>/`       | GET    | Retrieve a list of followers for a user         | List of followers with their details              |
+| `/api/following/<user_id>/`       | GET    | Retrieve a list of users followed by a user    | List of users followed with their details         |
+| `/api/follow/<user_id>/`          | POST   | Follow a user                                  | User is successfully followed                    |
+| `/api/unfollow/<user_id>/`        | DELETE | Unfollow a user                                | User is successfully unfollowed                  |
+
+
 ## Validation
 
 ### HTML Validation:

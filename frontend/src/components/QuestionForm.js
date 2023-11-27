@@ -11,7 +11,8 @@ function QuestionForm({ questionId }) {
     const [isEditMode, setIsEditMode] = useState(false);
     const { currentUser } = useAuth();
     const history = useHistory();
-
+    console.log(currentUser.pk)
+    
     useEffect(() => {
         if (questionId) {
             axios.get(`/api/questions/${questionId}`)

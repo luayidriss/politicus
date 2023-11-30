@@ -23,9 +23,7 @@ function QuestionForm({ questionId }) {
                     setIsEditMode(true);
                 })
                 .catch((error) => {
-                    if (error.response?.status ==! 400) {
-                        setError(error.response?.data)
-                    }
+                        setError(error.response.data)
                 });
         }
     }, [questionId]);
@@ -80,6 +78,7 @@ function QuestionForm({ questionId }) {
                             value={question}
                             onChange={(e) => setQuestion(e.target.value)}
                             className="form-control"
+                            required
                         />
                     </Form.Group>
 
@@ -90,6 +89,7 @@ function QuestionForm({ questionId }) {
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             className="form-control"
+                            required
                         />
                     </Form.Group>
 

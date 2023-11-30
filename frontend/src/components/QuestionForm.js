@@ -31,7 +31,11 @@ function QuestionForm({ questionId }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        
+        if (!question || !description) {
+            setError('Both Question and Description are required fields.');
+            return;
+        }
         try {
             if (isEditMode) {
                 const response = await axios.put(`/api/questions/${questionId}/`, {

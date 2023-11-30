@@ -23,50 +23,30 @@ function QuestionForm({ questionId }) {
                     setIsEditMode(true);
                 })
                 .catch((error) => {
-                        setError(error.response.data)
+                    console.log(error)
+                    setError(error.response?.data || 'Error fetching question');
                 });
         }
     }, [questionId]);
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (!question || !description) {
             setError('Both Question and Description are required fields.');
             return;
         }
+
         try {
-            if (isEditMode) {
-                const response = await axios.put(`/api/questions/${questionId}/`, {
-                    question,
-                    description,
-                });
-                history.push(`/questions/${response.data.id}`);
-            } else {
-                const response = await axios.post('/api/questions/', {
-                    question: question,
-                    description: description,
-                    user: currentUser.pk,
-                });
-                history.push(`/questions/${response.data.id}`);
-            }
+            const response = isEditMode
+                ? await axios.put(`/api/questions/${questionId}/`, { question, description })
+                : await axios.post('/api/questions/', { question, description, user: currentUser.pk });
+
+            history.push(`/questions/${response.data.id}`);
         } catch (error) {
-            if (error.response && error.response.data) {
-              const { non_field_errors, ...fieldErrors } = error.response.data;
-          
-              const fieldErrorMessages = Object.values(fieldErrors)
-                .map((errorList) => errorList.join(' '))
-                .join(' ');
-          
-              const errorMessage =
-                `${non_field_errors || ''} ${fieldErrorMessages || ''}`.trim();
-          
-              setError(errorMessage);
-            } else {
-              setError('Question submission failed. Please check your information.');
-            }
-          }
+            console.log(error)
+            setError(error.response?.data || 'Question submission failed. Please check your information.');
+        }
     };
 
     return (

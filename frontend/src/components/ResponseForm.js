@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import '../styles/ResponseForm.css'
@@ -60,9 +60,9 @@ function ResponseForm({ questionId, onAddResponse, currentUser, editableResponse
             }
         } catch (error) {
             if (error.response && error.response.data) {
-                setError(error.response.data.detail || 'Error submitting the response.');
+                setError(error.response.data.detail || 'Response submission failed. Please check your information.');
             } else {
-                setError('Error submitting the response.');
+                setError('Response submission failed. Please check your information.');
             }
         }
     };
@@ -80,7 +80,6 @@ function ResponseForm({ questionId, onAddResponse, currentUser, editableResponse
                             value={responseText}
                             onChange={(e) => setResponseText(e.target.value)}
                             placeholder={`Write your ${isEditing ? 'edited response' : 'response'} here...`}
-                            required
                         />
                     </Form.Group>
 

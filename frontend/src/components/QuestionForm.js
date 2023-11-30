@@ -13,6 +13,8 @@ function QuestionForm({ questionId }) {
     const [error, setError] = useState(null);
     const history = useHistory();
 
+    console.log(currentUser)
+
     useEffect(() => {
         if (questionId) {
             axios.get(`/api/questions/${questionId}`)
@@ -31,11 +33,6 @@ function QuestionForm({ questionId }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        if (!question || !description) {
-            setError('Both Question and Description are required fields.');
-            return;
-        }
 
         try {
             const response = isEditMode
@@ -62,7 +59,6 @@ function QuestionForm({ questionId }) {
                             value={question}
                             onChange={(e) => setQuestion(e.target.value)}
                             className="form-control"
-                            required
                         />
                     </Form.Group>
 
@@ -73,7 +69,6 @@ function QuestionForm({ questionId }) {
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             className="form-control"
-                            required
                         />
                     </Form.Group>
 

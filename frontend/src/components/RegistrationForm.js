@@ -26,14 +26,20 @@ function RegistrationForm() {
       history.push('/');
     } catch (error) {
       if (error.response && error.response.data) {
-        const { username, email, password1, password2 } = error.response.data;
-        setError(
-          `${username || ''} ${email || ''} ${password1 || ''} ${password2 || ''}`
-        );
+          const { username, email, password1, password2 } = error.response.data;
+
+          const errorMessages = [
+              username && `Username: ${username.join(', ')}`,
+              email && `Email: ${email.join(', ')}`,
+              password1 && `Password: ${password1.join(', ')}`,
+              password2 && `Confirm Password: ${password2.join(', ')}`,
+          ].filter(Boolean);
+
+          setError(`Validation failed. ${errorMessages.join(' ')}`);
       } else {
-        setError('Registration failed. Please check your information.');
+          setError('Registration failed. Please check your information.');
       }
-    }
+  }
   };
 
   return (

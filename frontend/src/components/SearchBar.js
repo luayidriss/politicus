@@ -1,12 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../styles/SearchBar.css';
 
-function SearchBar({ onSearch }) {
-  const [keyword, setKeyword] = useState('');
-
-  const handleSearch = () => {
-    onSearch(keyword);
-  };
+function SearchBar({ keyword, setKeyword, handleSearch }) {
 
   return (
     <div className="search-container">

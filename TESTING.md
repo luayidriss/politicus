@@ -115,4 +115,5 @@
 - [Full Python Validation Report](https://github.com/luayidriss/politicus/tree/fd874fab08e40ebe8861957d15c16499a6ba144e/validations/python)
 - For python validation I have used the official [PythonChecker](https://www.pythonchecker.com/) validator
 
----
+### Bugs
+- Since I am using the free version of ElephantSQL, the database server is easily overwhelmed. You might get errors 500 logged and some data might not appear on the UI. However, upon refreshing this quickly resolves itself.

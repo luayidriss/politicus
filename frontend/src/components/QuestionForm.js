@@ -13,8 +13,6 @@ function QuestionForm({ questionId }) {
     const [error, setError] = useState(null);
     const history = useHistory();
 
-    console.log(currentUser)
-
     useEffect(() => {
         if (questionId) {
             axios.get(`/api/questions/${questionId}`)
@@ -34,15 +32,22 @@ function QuestionForm({ questionId }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        try {
-            const response = isEditMode
-                ? await axios.put(`/api/questions/${questionId}/`, { question, description })
-                : await axios.post('/api/questions/', { question, description, user: currentUser.pk });
+        if (!question.trim() || !description.trim()) {
+            setError('Please fill in both the question and description fields.');
+            return;
+        }
 
-            history.push(`/questions/${response.data.id}`);
+        try {
+            if (isEditMode) {
+                await axios.put(`/api/questions/${questionId}/`, { question: question, description: description })
+                history.push(`/profile/${currentUser.pk}/`);
+
+            } else {
+                await axios.post('/api/questions/', { question: question, description: description, user: currentUser.pk })
+                history.push(`/profile/${currentUser.pk}/`);
+            }
         } catch (error) {
-            console.log(error)
-            setError(error.response?.data || 'Question submission failed. Please check your information.');
+            setError('Question submission failed. Please make sure you are logged in.');
         }
     };
 

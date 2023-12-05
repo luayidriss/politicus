@@ -54,7 +54,7 @@ function QuestionDetail() {
     const handleDelete = () => {
         axios.delete(`/api/questions/${questionId}`)
             .then(() => {
-                history.push('/');
+                history.push(`/profile/${currentUser.pk}`);
             })
             .catch((error) => {
             });

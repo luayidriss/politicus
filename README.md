@@ -176,6 +176,16 @@ Please refer to the [TESTING.md](TESTING.md) file for all test-related documenta
 - use Bootstrap default imports to minimize the build
 - deploy to Heroku
 
+## Reusable React Components
+
+### UserQuestions and UserResponses Components
+
+The `UserQuestions` and `UserResponses` components have been designed with reusability in mind. They offer a flexible and customizable solution for displaying user questions and responses throughout different profiles in my application.
+
+### Future Reusable Components
+
+In addition to the existing reusable components, I am actively working towards modularizing other elements within my application. The buttons, such as the search button and view question button, are potential components to be reusable React components. This approach aims to enhance code maintainability and promote a consistent user interface across different parts of your application.
+
 ## Libraries, contexts and hooks:
 
 - react-infinite-scroll-component

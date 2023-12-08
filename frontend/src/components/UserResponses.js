@@ -24,7 +24,7 @@ function UserResponses({ userId }) {
       ) : (
         userResponses.map((response) => (
           <Card key={response.id} className="mb-3">
-            <Card.Body>
+            <Card.Body className='card-body'>
               <Card.Title>{response.question.question}</Card.Title>
               <Card.Text>{response.response}</Card.Text>
               <Link to={`/questions/${response.question.id}`} className="btn btn-primary">

@@ -108,7 +108,8 @@ Politicus is an information-sharing platform where users can ask questions about
 
 ## Design
 
-- **Colors**: Simple off-white-grey background and dark navbar.
+- **Colors**: Simple off-white-grey background (#F5F5F5) dark grey navbar (#353A3F), and blue buttons (#3579F6) to keep a very simple color scheme.
+-**Typography**: Roboto and sans-serif font also to keep it simple and easy to read.
 - **Wireframes**: The wireframes are attached below
 ![Main Page](https://github.com/luayidriss/politicus/blob/7c3d3dbcb044bd66d8639f0663dd2b7046150cb3/media/wireframe_1.png)
 ![Main Page](https://github.com/luayidriss/politicus/blob/7c3d3dbcb044bd66d8639f0663dd2b7046150cb3/media/wireframe_2.png)

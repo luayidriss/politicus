@@ -206,7 +206,7 @@ In addition to the existing reusable components, I am actively working towards m
 - GitHub for giving me the platform to design my project.
 - Django for the framework.
 - Django Rest Framework for the API functionality.
-- Render for providing a free database.
+- ElephantSQL for providing a database.
 
 ## Acknowledgements
 

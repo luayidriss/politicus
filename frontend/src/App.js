@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom'; // Change BrowserRouter to HashRouter
 import NavigationBar from './components/NavigationBar';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
@@ -10,9 +10,10 @@ import Logout from './pages/Logout';
 import QuestionDetail from './components/QuestionDetail';
 import EditProfile from './components/EditProfile';
 import QuestionForm from './components/QuestionForm';
+import NF404 from './components/NF404';
 import './api/axiosDefaults';
 import { AuthProvider } from './components/AuthContext';
-import './App.css'
+import './App.css';
 
 function App() {
     return (
@@ -35,6 +36,7 @@ function App() {
                         <Route path="/register" component={Registration} />
                         <Route path="/login" component={Login} />
                         <Route path="/logout" component={Logout} />
+                        <Route component={NF404} />
                     </Switch>
                 </div>
             </AuthProvider>

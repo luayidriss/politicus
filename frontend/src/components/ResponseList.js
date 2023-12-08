@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../styles/ResponseList.css';
 
 function ResponseList({ questionId, currentUser, onEditResponse, refreshResponses }) {
     const [responses, setResponses] = useState([]);
-    const history = useHistory();
 
     useEffect(() => {
         axios.get(`/api/responses/?question=${questionId}`)
@@ -41,7 +40,7 @@ function ResponseList({ questionId, currentUser, onEditResponse, refreshResponse
         axios
           .delete(`/api/responses/${responseId}`)
           .then(() => {
-            history.go(0)
+            window.location.reload(false);
           })
           .catch((error) => {
           });

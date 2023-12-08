@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
 import '../styles/ResponseForm.css'
 
 function ResponseForm({ questionId, onAddResponse, currentUser, editableResponse, onCancelEdit, refreshResponses }) {
@@ -10,7 +9,6 @@ function ResponseForm({ questionId, onAddResponse, currentUser, editableResponse
         editableResponse ? (editableResponse.additional_resources || '') : ''
     );
     const isEditing = !!editableResponse;
-    const history = useHistory();
     const [error, setError] = useState(null);
     const handleCancelEdit = () => {
         setResponseText('');
@@ -38,7 +36,7 @@ function ResponseForm({ questionId, onAddResponse, currentUser, editableResponse
                     additional_resources: additionalResources,
                 });
                 handleCancelEdit();
-                history.go(0)
+                window.location.reload(false);
             } else {
                 const questionDetails = await axios.get(`/api/questions/${questionId}`);
                 const question = questionDetails.data;
@@ -53,7 +51,7 @@ function ResponseForm({ questionId, onAddResponse, currentUser, editableResponse
                 if (response.status === 201) {
                     handleCancelEdit();
                     onAddResponse(response.data);
-                    history.go(0)
+                    window.location.reload(false);
                 } else {
                     setError('Error submitting the response.');
                 }
